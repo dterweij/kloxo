@@ -1,7 +1,3 @@
-#
-This is a branch from my home development machine based on Kloxo 6.2.0 code.
-
-
 # Unstable Development Branch
 
 # Kloxo
