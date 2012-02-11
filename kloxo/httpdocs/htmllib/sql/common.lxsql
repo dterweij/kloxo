@@ -1,8 +1,9 @@
 <?php
+// Removed by DT
+// license ser_licensecom_b text_license_content
 
 $gl_sql_string_common = <<<SQL
 
-license ser_licensecom_b text_license_content
 loginattempt  count client_name
 blockedip  ipaddress
 allowedip  ipaddress

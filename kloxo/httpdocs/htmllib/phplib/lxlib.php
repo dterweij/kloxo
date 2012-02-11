@@ -2323,6 +2323,7 @@ function clear_all_cookie()
 
 function checkPublicKey($string, $encrypted_string)
 {
+    // ToDo: what is this file for?
 	$res = lfile_get_contents("__path_program_root/etc/authorized_keys");
 	$public_key = $res;
 	$pubkey_res = openssl_get_publickey($public_key);
@@ -3354,7 +3355,7 @@ function mysql_do_create_table($__db, $tbl_name, $fields)
 {
 	$fields = implode(', ', $fields);
 	$query = "create table $tbl_name ($fields, primary key (nname (255)));";
-	print("Creating table $tbl_name....\n");
+	print("Creating table $tbl_name...\n");
 	$ret = $__db->rawQuery($query);
 	if (!$ret) {
 		//print("\nerror: " . mysql_error() . "\n\n");

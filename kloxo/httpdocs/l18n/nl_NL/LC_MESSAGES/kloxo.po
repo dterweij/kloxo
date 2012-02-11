@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kloxo 6.2.x\n"
 "Report-Msgid-Bugs-To: LxCenter <contact@lxcenter.org>\n"
-"POT-Creation-Date: 2011-12-09 00:00+0100\n"
+"POT-Creation-Date: 2011-12-20 23:26+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Danny Terweij <d.terweij@lxcenter.org>\n"
 "Language-Team: \n"
@@ -14,109 +14,10 @@ msgstr ""
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Country: NETHERLANDS\n"
 
-#: httpdocs/lib/programlib.php:71
-#: httpdocs/lib/programlib.php:74
-msgid " OK\n"
-msgstr ""
-
-#: httpdocs/lib/programlib.php:72
-msgid "Remove downloaded InstallApp data zip file"
-msgstr ""
-
-#: httpdocs/htmllib/coredisplaylib.php:1765
-msgid "The system is locked by u"
-msgstr ""
-
-#: httpdocs/htmllib/coredisplaylib.php:1778
-msgid "This is a Slave server and is controlled by the Master server.\n"
-msgstr ""
-
-#: httpdocs/htmllib/coredisplaylib.php:1831
-msgid "Action not set.\n"
-msgstr ""
-
-#: httpdocs/htmllib/coredisplaylib.php:1838
-msgid "Action not supported.\n"
-msgstr ""
-
-#: httpdocs/htmllib/coredisplaylib.php:1958
-msgid "The resource you requested could not be retrieved..."
-msgstr ""
-
-#: httpdocs/htmllib/lib/indexcontent.php:38
-msgid "Slave Server"
-msgstr "Dit is een Slave server. Beheer het via de Master server."
-
-#: httpdocs/htmllib/lib/indexcontent.php:58
-#: httpdocs/htmllib/lib/indexcontent.php:73
-msgid "Login"
-msgstr "Inloggen"
-
-#: httpdocs/htmllib/lib/indexcontent.php:64
-#: httpdocs/htmllib/lib/indexcontent.php:117
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: httpdocs/htmllib/lib/indexcontent.php:67
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: httpdocs/htmllib/lib/indexcontent.php:79
-#: httpdocs/htmllib/lib/indexcontent.php:131
-msgid "Welcome to"
-msgstr "Welkom bij"
-
-#: httpdocs/htmllib/lib/indexcontent.php:81
-msgid "Use a valid username and password to gain access to the Control Panel."
-msgstr "Gebruik een geldig gebruikersnaam en wachtwoord voor toegang tot het controle paneel"
-
-#: httpdocs/htmllib/lib/indexcontent.php:84
-msgid "Forgot Password?"
-msgstr "Wachtwoord vergeten?"
-
-#: httpdocs/htmllib/lib/indexcontent.php:112
-msgid "Forgot Password"
-msgstr "Wachtwoord Herstel"
-
-#: httpdocs/htmllib/lib/indexcontent.php:120
-msgid "Email"
-msgstr "Email"
-
-#: httpdocs/htmllib/lib/indexcontent.php:125
-msgid "Send"
-msgstr "Verstuur"
-
-#: httpdocs/htmllib/lib/indexcontent.php:133
-msgid "Use a valid username and email address to get a password."
-msgstr "Gebruik een geldig gebruikersnaam en email adres voor de herstel procedure."
-
-#: httpdocs/htmllib/lib/indexcontent.php:136
-msgid "Back to Login"
-msgstr "Terug naar Login pagina"
-
-#: httpdocs/htmllib/lib/indexcontent.php:187
-msgid "Password Reset Request"
-msgstr "Wachwoord herstel verzoek"
-
-#: httpdocs/htmllib/lib/indexcontent.php:188
-msgid "Your password has been reset to the one below for your"
-msgstr "Wachtwoord herstel gegevens voor"
-
-#: httpdocs/htmllib/lib/indexcontent.php:188
-msgid "Control Panel login."
+#: file/default_index.php:51 httpdocs/login/index.php:51
+#, fuzzy
+msgid "Kloxo Control Panel"
 msgstr "Controle paneel."
-
-#: httpdocs/htmllib/lib/indexcontent.php:189
-msgid "The Client IP address which requested the reset:"
-msgstr "De herstel procedure komt van IP adres:"
-
-#: httpdocs/htmllib/lib/indexcontent.php:190
-msgid "Username:"
-msgstr "Gebruikersnaam:"
-
-#: httpdocs/htmllib/lib/indexcontent.php:191
-msgid "New Password:"
-msgstr "Nieuw wachtwoord:"
 
 #: httpdocs/htmllib/phplib/index.php:143
 msgid "Successful Login to "
@@ -126,3 +27,77 @@ msgstr ""
 msgid " from "
 msgstr ""
 
+#: httpdocs/login/login_block.php:34
+msgid "Slave Server"
+msgstr "Dit is een Slave server. Beheer het via de Master server."
+
+#: httpdocs/login/login_block.php:52 httpdocs/login/login_block.php:67
+msgid "Login"
+msgstr "Inloggen"
+
+#: httpdocs/login/login_block.php:58 httpdocs/login/login_block.php:107
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: httpdocs/login/login_block.php:61
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: httpdocs/login/login_block.php:73 httpdocs/login/login_block.php:121
+msgid "Welcome to"
+msgstr "Welkom bij"
+
+#: httpdocs/login/login_block.php:75
+msgid "Use a valid username and password to gain access to the Control Panel."
+msgstr ""
+"Gebruik een geldig gebruikersnaam en wachtwoord voor toegang tot het "
+"controle paneel"
+
+#: httpdocs/login/login_block.php:78
+msgid "Forgot Password?"
+msgstr "Wachtwoord vergeten?"
+
+#: httpdocs/login/login_block.php:102
+msgid "Forgot Password"
+msgstr "Wachtwoord Herstel"
+
+#: httpdocs/login/login_block.php:110
+msgid "Email"
+msgstr "Email"
+
+#: httpdocs/login/login_block.php:115
+msgid "Send"
+msgstr "Verstuur"
+
+#: httpdocs/login/login_block.php:123
+msgid "Use a valid username and email address to get a password."
+msgstr ""
+"Gebruik een geldig gebruikersnaam en email adres voor de herstel procedure."
+
+#: httpdocs/login/login_block.php:126
+msgid "Back to Login"
+msgstr "Terug naar Login pagina"
+
+#: httpdocs/login/login_block.php:178
+msgid "Password Reset Request"
+msgstr "Wachwoord herstel verzoek"
+
+#: httpdocs/login/login_block.php:179
+msgid "Your password has been reset to the one below for your"
+msgstr "Wachtwoord herstel gegevens voor"
+
+#: httpdocs/login/login_block.php:179
+msgid "Control Panel login."
+msgstr "Controle paneel."
+
+#: httpdocs/login/login_block.php:180
+msgid "The Client IP address which requested the reset:"
+msgstr "De herstel procedure komt van IP adres:"
+
+#: httpdocs/login/login_block.php:181
+msgid "Username:"
+msgstr "Gebruikersnaam:"
+
+#: httpdocs/login/login_block.php:182
+msgid "New Password:"
+msgstr "Nieuw wachtwoord:"

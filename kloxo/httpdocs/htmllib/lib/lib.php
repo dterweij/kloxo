@@ -2872,14 +2872,6 @@ function save_admin_email()
 	slave_save_db("contactemail", $a);
 }
 
-function getKloxoLicenseInfo()
-{
-	log_cleanup("Get Kloxo License info");
-	log_cleanup("- Get process");
-	
-	lxshell_php("htmllib/lbin/getlicense.php");
-}
-
 function createDatabaseInterfaceTemplate()
 {
 	log_cleanup("- Create database interface template (Forced)");
@@ -6532,4 +6524,73 @@ function findNextVersion($lastversion = null)
 	print("Upgrading from $thisversion to $upgrade\n");
 	return $upgrade;
 
+}
+
+function removeOldFiles()
+{
+	// Put here all the files that needs to be deleted at the client system
+	// Mostly due to Refactoring
+
+	global $gbl, $sgbl, $login, $ghtml;
+
+    // Single files
+	$filesList = array(
+        '/usr/local/lxlabs/kloxo/bin/install/lxinstall.php',
+        '/usr/local/lxlabs/kloxo/bin/install/fixvpstemplate.php',
+        '/usr/local/lxlabs/kloxo/bin/common/program-backend',
+        '/usr/local/lxlabs/kloxo/bin/common/fix/fixuser.php',
+        '/usr/local/lxlabs/kloxo/bin/common/misc/fix-webmail-2085.phps',
+        '/usr/local/lxlabs/kloxo/etc/livetranscript.txt',
+        '/usr/local/lxlabs/kloxo/etc/phplive.db',
+		'/usr/local/lxlabs/kloxo/file/indexcontent.php',
+        '/usr/local/lxlabs/kloxo/file/.db_schema.4_2',
+        '/usr/local/lxlabs/kloxo/file/default_index.html',
+        '/usr/local/lxlabs/kloxo/file/default_inc.php',
+        '/usr/local/lxlabs/kloxo/file/disable.html',
+        '/usr/local/lxlabs/kloxo/file/disable_inc.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/login/index.html',
+        '/usr/local/lxlabs/kloxo/httpdocs/lib/indexheader.html',
+        '/usr/local/lxlabs/kloxo/httpdocs/lib/demologins.html',
+        '/usr/local/lxlabs/kloxo/httpdocs/lib/messagelib.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/lib/oldindexcontent.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/backend.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/dd.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/DONE.dart',
+        '/usr/local/lxlabs/kloxo/httpdocs/index.html',
+        '/usr/local/lxlabs/kloxo/httpdocs/LICENSE',
+        '/usr/local/lxlabs/kloxo/httpdocs/q.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/.phplibver',
+        '/usr/local/lxlabs/kloxo/httpdocs/.clearexec',
+        '/usr/local/lxlabs/kloxo/httpdocs/.php.err',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/indexcontent.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/admin_login.css'
+	);
+
+    // Directories recursive! Be warned!
+	$dirList = array(
+        '/usr/local/lxlabs/kloxo/bin/suexec/',
+        '/usr/local/lxlabs/kloxo/httpdocs/help-base/',
+        '/usr/local/lxlabs/kloxo/httpdocs/images/',
+        '/usr/local/lxlabs/kloxo/httpdocs/lib/hn_urlrewrite_example/',
+        '/usr/local/lxlabs/kloxo/httpdocs/sql/change/',
+        '/usr/local/lxlabs/kloxo/httpdocs/tmpimg/',
+        '/usr/local/lxlabs/kloxo/httpdocs/tmpskin/',
+        '/usr/local/lxlabs/kloxo/httpdocs/webdisk/',
+		'/usr/local/lxlabs/kloxo/httpdocs/live/'
+	);
+
+
+	foreach($filesList as $file) {
+		if (lxfile_exists($file)) {
+			log_cleanup("- Remove old not used file: {$file}");
+			lxfile_rm($file);
+		}
+	}
+
+    foreach($dirList as $dir) {
+        if (lxfile_exists($dir)) {
+            log_cleanup("- Remove old not used dir include files: {$dir}");
+            lxfile_rm_rec($dir);
+        }
+    }
 }

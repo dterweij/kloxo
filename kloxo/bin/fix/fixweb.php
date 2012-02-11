@@ -16,16 +16,17 @@ log_cleanup("Fixing Web server config");
 $prevsyncserver = '';
 $currsyncserver = '';
 
+$x = 0 ;
+
 foreach($list as $c) {
+
 	if ($client) {
-	//	if ($client !== $c->nname) { continue; }
 		$ca = explode(",", $client);
 		if (!in_array($c->nname, $ca)) { continue; }
 		$server = 'all';
 	}
 
 	if ($server !== 'all') {
-	//	if ($c->syncserver !== $server) { continue; }
 		$sa = explode(",", $server);
 		if (!in_array($c->syncserver, $sa)) { continue; }
 	}

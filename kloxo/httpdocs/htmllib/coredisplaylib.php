@@ -98,9 +98,6 @@ function __ac_desc_show($object)
     $class = lget_class($object);
     $subaction = $ghtml->frm_subaction;
 
-    if (!$login->isAdmin()) {
-        check_for_license();
-    }
 
     $object->getAnyErrorMessage();
 
@@ -522,35 +519,6 @@ function do_list_class($object, $cname)
     $ghtml->print_information('post', 'list', $cname, "", "");
 }
 
-function check_for_license()
-{
-    global $gbl, $sgbl, $login, $ghtml;
-
-    $lic = $login->getObject('license')->licensecom_b;
-
-    $prgm = $sgbl->__var_program_name;
-    if ($prgm === 'lxlabsclient') return;
-
-    $list = get_admin_license_var();
-
-    foreach($list as $k => $l)
-    {
-        $res = strfrom($k, "used_q_");
-        $licv = "lic_$res";
-        if ($licv === "lic_maindomain_num" && !isset($lic->$licv)) {
-            $lic->$licv = $lic->lic_domain_num;
-        }
-        if ($l > $lic->$licv) {
-            if ($login->isAdmin()) {
-                $mess = $ghtml->show_error_message("The system is not at present working because there is not enough license for $res. Please go to [b]  admin home -> advanced -> license update [/b]  and click on [b] get license from lxlabs [/b]. You will have to first create a valid license at client.lxlabs.com.");
-            } else {
-                $mess = $ghtml->show_error_message("The system is not at present working because there is not enough license for $res. Please contact your administrator.");
-            }
-            exit;
-        }
-    }
-}
-
 function __ac_desc_list($object, $cname = null)
 {
     global $gbl, $sgbl, $login, $ghtml;
@@ -561,7 +529,6 @@ function __ac_desc_list($object, $cname = null)
 
     $selflist = $object->getSelfList();
 
-    check_for_license();
     $refresh = $ghtml->frm_list_refresh;
     if ($refresh === 'yes') {
         $object->clearList($cname);
@@ -648,6 +615,7 @@ function get_return_url($action)
 
 function __ac_desc_showform($object)
 {
+	// ToDo: Remove empty function
 }
 
 function __ac_desc_Update($object)
@@ -1613,58 +1581,6 @@ function print_warning()
     $gbl->__v_first_time = 1;
 }
 
-function license_check()
-{
-    global $gbl, $sgbl, $login, $ghtml;
-
-    // Don't check for license if you are currently doing license management.
-    if (csb($ghtml->frm_action, 'update')  && $ghtml->frm_subaction === 'license') {
-        return;
-    }
-    if ($gbl->getSessionV('__v_not_first_time')) {
-        return;
-    }
-
-    // First time;
-    dprint("First time");
-    $time = getLicense('lic_expiry_date');
-    $iip = getLicense('lic_ipaddress');
-    $ipdb = new Sqlite(null, 'ipaddress');
-    $iplist = $ipdb->getRowsWhere("syncserver = 'localhost'", null, array('ipaddr'));
-    $match = false;
-    // Lack of ip should give a warning. Or allow people to reread the ip address.
-    foreach((array) $iplist as $ip) {
-        if ($ip['ipaddr'] === $iip) {
-            $match = true;
-        }
-    }
-    $time = intval($time);
-    if ($time < time()) {
-
-        $mess = "License Expired";
-        print('<br> <br> <br> <br> <br> ');
-        print($mess);
-        if ($login->isAdmin()) {
-            do_updateform($login, "license");
-        }
-        exit;
-    }
-
-    if ($login->isAdmin()) {
-        if (($time - time()) < 24 * 3600 * 27) {
-            // Putting it into http error messaeg. Should actually move this to gbl.
-            $expire = ($time - time())/(24 * 3600);
-            $ghtml->__http_vars['frm_emessage'] = "license_will_expire";
-            $ghtml->__http_vars['frm_m_emessage_data'] = round($expire);
-        }
-
-        if (!$match) {
-            $ghtml->__http_vars['frm_emessage'] = "license_doesnt_match_ip";
-        }
-    }
-    $gbl->setSessionV('__v_not_first_time', 1);
-    $gbl->__v_first_time = 1;
-}
 
 function password_contact_check()
 {

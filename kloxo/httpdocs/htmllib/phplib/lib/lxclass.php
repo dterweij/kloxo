@@ -4299,36 +4299,6 @@ function changeUsedFromParent($qp, $flag)
 	}
 
 
-	/*
-	$list = $qp->getQuotaVariableList();
-
-	foreach($list as $l => $v) {
-		if (csb($l, "{$class}_m_")) {
-			$license = strtil(strfrom($l, "_n_"), "_num");
-			$licvar = strtil(strfrom($l, "_m_"), "_n_");
-			if ($this->$licvar === $license) {
-				$qp->used->$l += $val;
-				$doupdate = true;
-			}
-		}
-	}
-*/
-
-
-	// This is not needed. When you add or delete something, just remove its number from the parent. Reducing the usages seem to cause lots of problem.
-	/*
-	$qv = $this->getQuotaVariableList();
-	foreach((array) $qv as $k => $v) {
-		if (cse($k, "_time") || cse($k, "_flag") || cse($k, "_num")) {
-			continue;
-		}
-		if (isset($this->used)) {
-			$rv = $flag * $this->used->$k;
-			$qp->used->$k += $rv;
-			$doupdate = true;
-		}
-	}
-*/
 
 	if ($doupdate) {
 		dprint("<b> Warning Change Used From Parent... {$qp->getClname()} {$class} {$this->nname} <br> </b><br>\n ");
@@ -4353,7 +4323,7 @@ function convertClCmToNameCm($cmlist)
 	$nv = null;
 	foreach($v as $__q) {
 		if ($__q) {
-			//list($pclass, $pname) = explode("_s_vv_p_", $__q);
+
 			list($pclass, $pname) = getParentNameAndClass($__q);
 			$nv[] = $pname;
 		}

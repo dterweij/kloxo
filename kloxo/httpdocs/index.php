@@ -42,7 +42,7 @@ function domainshow()
 	$title = get_title();
 	?>
 <head>
-	<title> <?php echo $title ?> </title>
+	<title><?php echo $title ?></title>
 
 	<?php $ghtml->print_refresh_key();
 

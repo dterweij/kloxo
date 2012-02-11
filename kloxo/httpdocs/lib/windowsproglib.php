@@ -1,5 +1,6 @@
 <?php 
 
+// TODO: Remove this file and depencies.
 
 function windows_add_iis_filter_registry()
 {

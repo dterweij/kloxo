@@ -90,8 +90,8 @@ function do_upgrade($upversion)
 	global $gbl, $sgbl, $login, $ghtml; 
 	$program = $sgbl->__var_program_name;
 
-	if (file_exists(".svn")) {
-		log_cleanup("BREAK - Development version found");
+	if (file_exists('__path_program_htmlbase/command.php')) {
+		log_cleanup('BREAK - Development version found');
 		exit;
 	}
 
@@ -188,6 +188,13 @@ function fixDataBaseIssues()
 	$sq->rawQuery("alter table installsoft change ser_installappmisc_b ser_installappmisc_b longtext");
 	$sq->rawQuery("alter table web change ser_redirect_a ser_redirect_a longtext");
 
+
+	// New since 6.2.x we do not need this anymore
+	// DONT USE THIS IN 6.1.x! -DT
+	log_cleanup("- Drop table license from kloxo db");
+	$sq->rawQuery("drop table license");
+
+	// ToDo: Remove this for #397
 	log_cleanup("- Set default welcome text at Kloxo login page");
 	initDbLoginPre();
 
@@ -198,6 +205,8 @@ function fixDataBaseIssues()
 function doUpdates()
 {
 	global $gbl, $sgbl, $login, $ghtml;
+
+	removeOldFiles();
 
 	createFlagDir();
 
@@ -220,8 +229,6 @@ function doUpdates()
 	fixMySQLRootPassword();
 
 	save_admin_email();
-
-	getKloxoLicenseInfo();
 
 	createDatabaseInterfaceTemplate();
 

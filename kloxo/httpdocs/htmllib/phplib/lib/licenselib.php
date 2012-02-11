@@ -33,6 +33,8 @@ static function initThisObjectRule($parent, $class, $name = null)
 
 function updateform($subaction, $param)
 {
+	// ToDo: Remove This
+	return;
 	global $gbl, $sgbl, $login, $ghtml; 
 	switch($subaction) 
 	{
@@ -89,23 +91,28 @@ function updateform($subaction, $param)
 
 function createShowUpdateform()
 {
+	// ToDo: Remove This
 	$uflist['license'] = null;
 	return $uflist;
 }
 function createShowAlist(&$alist, $subaction = null)
 {
+	//ToDo:  Remove This
 	return $alist;
 }
 
 function updateLicense($param)
 {
-	self::doupdateLicense();
+// ToDo: Remove This
+//	self::doupdateLicense();
 	return null;
 }
 
 static function doupdateLicense()
 {
-	global $gbl, $sgbl, $login, $ghtml; 
+// ToDo: Remove This
+/*
+  	global $gbl, $sgbl, $login, $ghtml;
 	$rmt = new Remote();
 	$rmt->program_name = $sgbl->__var_program_name;
 	$var = base64_encode(serialize($rmt));
@@ -133,11 +140,9 @@ static function doupdateLicense()
 
 
 	$lic = $license->licensecom_b;
-	if ($sgbl->isKloxo()) {
+
 		$def = array("maindomain_num" => "Unlimited", "domain_num" => 'Unlimited', "pserver_num" => "Unlimited", "client_num" => "Unlimited");
-	} else {
-		$def = array("vps_num" => 'Unlimited', "client_num" => "Unlimited");
-	}
+
 	$list = array("maindomain_num","domain_num","pserver_num");
 	foreach($list as $l) {
 		$licv = "lic_$l";
@@ -145,6 +150,7 @@ static function doupdateLicense()
 	}
 	$license->setUpdateSubaction();
 	$license->write();
+*/
 }
 
 function isSync() { return false ; }

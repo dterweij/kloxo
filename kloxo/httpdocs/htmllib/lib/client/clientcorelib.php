@@ -36,7 +36,7 @@ static $__acdesc_update_pserver  =  array("","",  "server_pool");
 static $__acdesc_update_ipaddress  =  array("","",  "ip_pool"); 
 static $__acdesc_update_changeowner = array("", "",  "change_owner");
 static $__acdesc_update_description = array("", "",  "information");
-static $__acdesc_update_license  =  array("","",  "license"); 
+//static $__acdesc_update_license  =  array("","",  "license");
 static $__acdesc_update_disable_url  =  array("","",  "disable_url");
 static $__acdesc_update_forcedeletepserver  =  array("","",  "force_delete_server");
 static $__acdesc_update_generate_csr  =  array("","",  "generate_csr");
@@ -53,11 +53,6 @@ static $__desc_owner_f_v_off = array("", "",  "you_are_the_owner_of_plan");
 
 function display($var)
 {
-	/*
-	if ($var === 'nname') {
-		return ucfirst($this->$var);
-	}
-*/
 	if ($var === 'resourceplan_used_f') {
 		return strtil($this->resourceplan_used, "___");
 	}
@@ -486,26 +481,6 @@ function updateform($subaction, $param)
 
 			return $vlist;
 
-
-		case "license":
-			{
-				$lic = $login->getObject('license')->licensecom_b;
-				if ($login->isAdmin()) {
-					$vlist['lic_pserver_num_f'] = array('M', $lic->lic_pserver_num);
-					$vlist['lic_client_num_f'] = array('M', $lic->lic_client_num);
-					$vlist['lic_maindomain_num_f'] = array('M', $lic->lic_maindomain_num);
-				} else {
-					$vlist['lic_node_num_f'] = array('M', $lic->node_num);
-				}
-				$vlist['lic_live_support_f'] = array('M', $lic->lic_live_support);
-				//$vlist['lic_ipaddress_f'] = array('M', $lic->lic_ipaddress);
-				$vlist['lic_client_f'] = array('M', $lic->lic_client);
-				//$vlist['lic_current_f'] = array('t', lfile_get_contents('__path_program_etc/license.txt'));
-				$vlist['license_upload_f'] = null;
-				return $vlist;
-
-			}
-
 		case "ipaddress":
 			$parent = $this->getParentO();
 			if ($this->isLogin() || !$this->isRightParent()) {
@@ -605,28 +580,6 @@ function updateDnstemplatelist($param)
 	return $param;
 }
 
-function updateLicense($param)
-{
-	global $gbl, $sgbl, $login, $ghtml; 
-	if (!$login->isLteAdmin()) {
-		throw new lxException ("not_admin", '');
-	}
-
-
-	//$this->license_upload_f =  $param['license_upload_f'];
-	$fname = $_FILES["license_upload_f"]["tmp_name"]; 
-	//$val = str_replace(" ", "", $this->license_upload_f);
-	//lfile_put_contents("__path_program_etc/license.txt", $val);
-	if (!lcopy($fname, "__path_program_etc/license.txt")) {
-		throw new lxException ("failed_to_copy_license_file_permission_error", 'licence');
-	}
-	decodeAndStoreLicense();
-
-	// This is set so that the license alone feature - happens when the license expires - will properly redirect back to the original page. 
-	$gbl->__this_redirect = '/display.php?frm_action=show';
-	return null;
-}
-
 
 final function updatepserver_s($param)
 {
@@ -648,13 +601,7 @@ function createShowRlist($subaction)
 {
 
 	global $gbl, $sgbl, $login, $ghtml; 
-	/*
-	if ($this->isCustomer()) {
-		if (!$this->priv->isOn('domain_add_flag')) {
-			return null;
-		}
-	}
-*/
+
 	if ($sgbl->isKloxo() && !$this->priv->isOn('webhosting_flag')) {
 		return null;
 	}

@@ -5226,13 +5226,12 @@ class HtmlLib
 
 	function print_jscript_source($jsource)
 	{
-		print("<script language=Javascript src=$jsource> </script>\n");
-
+		print("<script type='text/javascript' language='javascript' src='$jsource'></script>\n");
 	}
 
 	function print_css_source($csource)
 	{
-		print("<link href='$csource' rel=stylesheet type=text/css>\n");
+		print("<link href='$csource' rel='stylesheet' type='text/css'/>\n");
 	}
 
 	function get_lpanel_file()

@@ -27,7 +27,8 @@ function syncUseradd()
 
 	$password = $this->main->password;
 	if (!$this->main->password) {
-		$password = crypt('something');
+		throw new lxException("no_password", "nname", $global_shell_error);
+
 	}
 
 	$quser = explode("@", $this->main->nname);
@@ -35,13 +36,13 @@ function syncUseradd()
 
 	$res = lxuser_return(mmail__qmail::getUserGroup($domain), "__path_mail_root/bin/vadduser", $this->main->nname, '-e', $password);
 
-	if ($res) {
+//	if ($res) {
 		// --- Issue #702 - Error 'mailaccount_add_failed' when add email account
 		// REVERT -- back to previous
-		if (!csb($this->main->nname, "postmaster")) {
-			throw new lxException("mailaccount_add_failed", "nname", $global_shell_error);
-		}
-	}
+//		if (!csb($this->main->nname, "postmaster")) {
+//			throw new lxException("mailaccount_add_failed", "nname", $global_shell_error);
+//		}
+//	}
 
 	$this->syncQmail();
 	$this->syncQuota();
