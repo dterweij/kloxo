@@ -5211,7 +5211,10 @@ function setDefaultPages()
 	log_cleanup("- Php files for login web page");
 	lxfile_cp("../file/default_index.php", "/usr/local/lxlabs/kloxo/httpdocs/login/index.php");
 	lxfile_cp("../file/login_inc.php", "/usr/local/lxlabs/kloxo/httpdocs/login/inc.php");
-	lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/index.php", "lxlabs:lxlabs");
+    lxfile_cp("../file/login_block.php", "/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php");
+    lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php", "lxlabs:lxlabs");
+	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php", "0644");
+    lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/index.php", "lxlabs:lxlabs");
 	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/index.php", "0644");
 	lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/inc.php", "lxlabs:lxlabs");
 	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/inc.php", "0644");
