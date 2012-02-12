@@ -5186,18 +5186,7 @@ function setDefaultPages()
 
 		log_cleanup("- Php files for {$p} web page");
 		lxfile_cp("../file/{$inc}_inc.php", "{$httpdpath}/{$p}/inc.php");
-		lxfile_cp("../file/default_index.php", "{$httpdpath}/{$p}/index.php");
-
-		// by-pass this code because few update files
-	/*
-		if ($newer) {
-			log_cleanup("- Skeleton for {$p} web page");
-			lxshell_unzip("__system__", "{$httpdpath}/{$p}/", $targetzip);
-		}
-		else {
-			log_cleanup("- No skeleton for {$p} web page");
-		}
-	*/
+		lxfile_cp("../file/login_index.php", "{$httpdpath}/{$p}/index.php");
 		log_cleanup("- Skeleton for {$p} web page");
 		lxshell_unzip("__system__", "{$httpdpath}/{$p}/", $targetzip);
 
@@ -5208,10 +5197,10 @@ function setDefaultPages()
 	}
 
 
-	log_cleanup("- Php files for login web page");
-	lxfile_cp("../file/default_index.php", "/usr/local/lxlabs/kloxo/httpdocs/login/index.php");
-	lxfile_cp("../file/login_inc.php", "/usr/local/lxlabs/kloxo/httpdocs/login/inc.php");
-    lxfile_cp("../file/login_block.php", "/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php");
+	log_cleanup('- Create Login page default files');
+	lxfile_cp('../file/login-page/login_index.php', '/usr/local/lxlabs/kloxo/httpdocs/login/index.php');
+	lxfile_cp('../file/login-page/login_inc.php', '/usr/local/lxlabs/kloxo/httpdocs/login/inc.php');
+    lxfile_cp('../file/login-page/login_block.php', '/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php');
     lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php", "lxlabs:lxlabs");
 	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php", "0644");
     lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/index.php", "lxlabs:lxlabs");
@@ -5219,19 +5208,10 @@ function setDefaultPages()
 	lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/inc.php", "lxlabs:lxlabs");
 	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/inc.php", "0644");
 
-	// by-pass this code because few update files
-/*
-	if ($newer) {
-		log_cleanup("- Skeleton for login web page");
-		lxshell_unzip("__system__", "/usr/local/lxlabs/kloxo/httpdocs/login", "../file/skeleton.zip");
-	}
-	else {
-		log_cleanup("- No skeleton for login web page");
-	}
-*/
-
-	log_cleanup("- Skeleton for login web page");
+	log_cleanup("- Populate Images for Login page");
 	lxshell_unzip("__system__", "/usr/local/lxlabs/kloxo/httpdocs/login", "../file/skeleton.zip");
+    // Remove index.html as it not needed inside login
+    lxfile_rm('/usr/local/lxlabs/kloxo/httpdocs/login/index.html');
 
 	$usersourcezip = realpath("../file/user-skeleton.zip");
 	$usertargetzip = "/home/kloxo/user-httpd/user-skeleton.zip";
@@ -6551,7 +6531,10 @@ function removeOldFiles()
         '/usr/local/lxlabs/kloxo/file/default_inc.php',
         '/usr/local/lxlabs/kloxo/file/disable.html',
         '/usr/local/lxlabs/kloxo/file/disable_inc.php',
-        '/usr/local/lxlabs/kloxo/httpdocs/login/index.html',
+         '/usr/local/lxlabs/kloxo/file/login_inc.php',
+         '/usr/local/lxlabs/kloxo/file/default_index.php',
+         '/usr/local/lxlabs/kloxo/file/login_block.php',
+         '/usr/local/lxlabs/kloxo/httpdocs/login/index.html',
         '/usr/local/lxlabs/kloxo/httpdocs/lib/indexheader.html',
         '/usr/local/lxlabs/kloxo/httpdocs/lib/demologins.html',
         '/usr/local/lxlabs/kloxo/httpdocs/lib/messagelib.php',

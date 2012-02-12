@@ -1,0 +1,13 @@
+#
+# You use the following files in this directory to customize the login page of Kloxo.
+#
+# Just add the files, you don't have to delete the existing files in here.
+#
+# custom-index.php - Customize the index.
+# custom-inc.php - Customize the include
+#
+# The login_block.php is loaded from inc.php the default. You dont have to use this.
+#
+# As you can see the loginpage can be complete customized without editing/replacing the existing files.
+#
+
