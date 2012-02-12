@@ -1,0 +1,185 @@
+/*
+ *  Kloxo, Hosting Control Panel
+ *
+ *  Copyright (C) 2000-2009	LxLabs
+ *  Copyright (C) 2009-2011	LxCenter
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+body {
+    font-family: Tahoma, Verdana, Arial, Helvertica, sans-serif;
+	font-size: 8pt;
+	font-weight: 100;
+	background: #ddeeff;
+    margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+img {
+	border: 0;
+}
+
+img.logo {
+	margin: 5px;
+	padding: 0;
+}
+
+table.header {
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: #66aadd;
+	width: 100%;
+	font-family: Tahoma, Verdana, Arial, Helvertica, sans-serif;
+	font-size: 8pt;
+	font-weight: 100;
+}
+
+table.content {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	font-family: Tahoma, Verdana, Arial, Helvertica, sans-serif;
+	font-size: 8pt;
+	font-weight: 100;
+}
+
+.loginboxtitle {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 15px;
+    font-weight: bold;
+    color: #F00;
+}
+
+.loginlinks {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 9px;
+	text-decoration: underline;
+	color: #666;
+}
+
+#wrapper {
+    border: 0;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+#break {
+	height: 20px;
+}
+
+form {
+	margin: 0;
+}
+
+.button {
+	border : solid 1px #cccccc;
+	background: #E9ECEF;
+	color : #666666;
+	font-weight : bold;
+	font-size : 11px;
+	padding: 4px;
+}
+
+.login {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 6em;
+	padding: 15px;
+	border: 1px solid #cccccc;
+	width: 429px;
+	background: #F1F3F5;
+}
+	
+.login p {
+	padding: 0 1em 0 1em;
+}
+					
+.form-block {
+	border: 1px solid #cccccc;
+	background: #E9ECEF;
+	padding: 15px 10px 10px 10px;
+}
+
+.login-form {
+	text-align: left;
+	float: right;
+	width: 60%;
+}
+
+.login-text {
+	text-align: left;
+	width: 40%;
+	float: left;
+}
+
+.inputlabel {
+	font-weight: bold;
+	text-align: left;
+}
+
+.inputbox {
+	color: #000000;
+    font-family: Verdana, Geneva, sans-serif;
+	font-size: 11px;
+	width: 190px;
+	padding: 2px 2px 3px 2px;
+	background: URL('/img/login/user.gif') no-repeat;
+	background-position: 1px 1px;
+	background-color: #FFFFFF;
+	padding-left: 18px;
+	vertical-align: middle;
+	margin: 0 0 1em 0;
+	border: 1px solid #cccccc;
+}
+.passbox {
+	color: #000000;
+    font-family: Verdana, Geneva, sans-serif;
+	font-size: 11px;
+	width: 190px;
+	padding: 2px 2px 3px 2px;
+	background-position: 1px 1px;
+	background-color: #FFFFFF;
+	vertical-align: middle;
+	margin: 0 0 1em 0;
+	border: 1px solid #cccccc;
+}
+
+.clr {
+	clear:both;
+}
+
+.ctr {
+	text-align: center;
+}
+
+.version {
+	font-size: 0.8em;
+}
+
+.message {
+	margin-top: 10px; 
+	padding: 7px; 
+	width: 400px;
+	border: 1px solid #B22222;
+	background: #F1F3F5;
+	color: #B22222;	
+	font-weight: bold;
+	font-size: 13px;
+}
+
