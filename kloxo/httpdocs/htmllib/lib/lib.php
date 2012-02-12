@@ -6528,13 +6528,13 @@ function findNextVersion($lastversion = null)
 
 function removeOldFiles()
 {
-	// Put here all the files that needs to be deleted at the client system
-	// Mostly due to Refactoring
+    // Put here all the files that needs to be deleted at the client system
+    // Mostly due to Refactoring
 
-	global $gbl, $sgbl, $login, $ghtml;
+    global $gbl, $sgbl, $login, $ghtml;
 
     // Single files
-	$filesList = array(
+    $filesList = array(
         '/usr/local/lxlabs/kloxo/bin/install/lxinstall.php',
         '/usr/local/lxlabs/kloxo/bin/install/fixvpstemplate.php',
         '/usr/local/lxlabs/kloxo/bin/common/program-backend',
@@ -6542,7 +6542,7 @@ function removeOldFiles()
         '/usr/local/lxlabs/kloxo/bin/common/misc/fix-webmail-2085.phps',
         '/usr/local/lxlabs/kloxo/etc/livetranscript.txt',
         '/usr/local/lxlabs/kloxo/etc/phplive.db',
-		'/usr/local/lxlabs/kloxo/file/indexcontent.php',
+        '/usr/local/lxlabs/kloxo/file/indexcontent.php',
         '/usr/local/lxlabs/kloxo/file/.db_schema.4_2',
         '/usr/local/lxlabs/kloxo/file/default_index.html',
         '/usr/local/lxlabs/kloxo/file/default_inc.php',
@@ -6561,36 +6561,46 @@ function removeOldFiles()
         '/usr/local/lxlabs/kloxo/httpdocs/q.php',
         '/usr/local/lxlabs/kloxo/httpdocs/.phplibver',
         '/usr/local/lxlabs/kloxo/httpdocs/.clearexec',
-        '/usr/local/lxlabs/kloxo/httpdocs/.php.err',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/filecore/lxlabs.repo.template',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lbin/help.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lbin/missing.txt',
         '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/indexcontent.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/helpvarlib.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/langfunctionlib.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/langkeywordlib.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/messagelib.php',
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/notyetmesslib.php',
         '/usr/local/lxlabs/kloxo/httpdocs/htmllib/lib/admin_login.css'
-	);
+    );
 
     // Directories recursive! Be warned!
-	$dirList = array(
+    $dirList = array(
+        '/usr/local/lxlabs/kloxo/httpdocs/htmllib/.etc/',
         '/usr/local/lxlabs/kloxo/bin/suexec/',
         '/usr/local/lxlabs/kloxo/httpdocs/help-base/',
+        '/usr/local/lxlabs/kloxo/httpdocs/help-core/',
         '/usr/local/lxlabs/kloxo/httpdocs/images/',
         '/usr/local/lxlabs/kloxo/httpdocs/lib/hn_urlrewrite_example/',
         '/usr/local/lxlabs/kloxo/httpdocs/sql/change/',
         '/usr/local/lxlabs/kloxo/httpdocs/tmpimg/',
         '/usr/local/lxlabs/kloxo/httpdocs/tmpskin/',
         '/usr/local/lxlabs/kloxo/httpdocs/webdisk/',
-		'/usr/local/lxlabs/kloxo/httpdocs/live/'
-	);
+        '/usr/local/lxlabs/kloxo/httpdocs/live/'
+    );
 
 
-	foreach($filesList as $file) {
-		if (lxfile_exists($file)) {
-			log_cleanup("- Remove old not used file: {$file}");
-			lxfile_rm($file);
-		}
-	}
+    foreach ($filesList as $file) {
+        if (lxfile_exists($file)) {
+            log_cleanup("- Remove old not used file: {$file}");
+            lxfile_rm($file);
+        }
+    }
 
-    foreach($dirList as $dir) {
+    foreach ($dirList as $dir) {
         if (lxfile_exists($dir)) {
-            log_cleanup("- Remove old not used dir include files: {$dir}");
+            log_cleanup("- Remove old not used dir include the files: {$dir}");
             lxfile_rm_rec($dir);
         }
     }
+
 }
