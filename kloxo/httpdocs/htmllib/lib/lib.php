@@ -5201,17 +5201,17 @@ function setDefaultPages()
 	lxfile_cp('../file/login-page/login_index.php', '/usr/local/lxlabs/kloxo/httpdocs/login/index.php');
 	lxfile_cp('../file/login-page/login_inc.php', '/usr/local/lxlabs/kloxo/httpdocs/login/inc.php');
     lxfile_cp('../file/login-page/login_block.php', '/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php');
-    lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php", "lxlabs:lxlabs");
-	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/login_block.php", "0644");
-    lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/index.php", "lxlabs:lxlabs");
-	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/index.php", "0644");
-	lxfile_unix_chown("/usr/local/lxlabs/kloxo/httpdocs/login/inc.php", "lxlabs:lxlabs");
-	lxfile_unix_chmod("/usr/local/lxlabs/kloxo/httpdocs/login/inc.php", "0644");
 
 	log_cleanup("- Populate Images for Login page");
 	lxshell_unzip("__system__", "/usr/local/lxlabs/kloxo/httpdocs/login", "../file/skeleton.zip");
+
     // Remove index.html as it not needed inside login
     lxfile_rm('/usr/local/lxlabs/kloxo/httpdocs/login/index.html');
+
+    // Set correct permissions
+    lxfile_unix_chown_rec('/usr/local/lxlabs/kloxo/httpdocs/login/', 'lxlabs:lxlabs');
+    lxfile_unix_chmod_rec('/usr/local/lxlabs/kloxo/httpdocs/login/', '0644');
+    lxfile_unix_chmod('/usr/local/lxlabs/kloxo/httpdocs/login', '0755');
 
 	$usersourcezip = realpath("../file/user-skeleton.zip");
 	$usertargetzip = "/home/kloxo/user-httpd/user-skeleton.zip";
@@ -5761,9 +5761,12 @@ function setExecuteCentos5Script()
 	if (is_centosfive()) {
 		log_cleanup("- Executing centos5-postpostupgrade script");
 		lxshell_return("sh", "../pscript/centos5-postpostupgrade");
-		lxfile_cp("../file/centos-5/CentOS-Base.repo", "/etc/yum.repos.d/CentOS-Base.repo");
-		log_cleanup("- Remove epel.repo from system");
-		lxfile_rm("/etc/yum.repos.d/epel.repo");
+        // ToDo: remove not needed files
+        // Just use the OS default. Dont mess with OS.
+		// lxfile_cp("../file/centos-5/CentOS-Base.repo", "/etc/yum.repos.d/CentOS-Base.repo");
+        // Dont delete, leave up to the user if want to mix/use other repo's
+		//log_cleanup("- Rename epel.repo to epel.repo.lxsave");
+		//lxfile_rm("/etc/yum.repos.d/epel.repo");
 	}
 	else {
 		log_cleanup("- Not needed to execute");
