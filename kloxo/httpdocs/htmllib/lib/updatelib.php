@@ -97,13 +97,15 @@ function do_upgrade($upversion)
 
 	$programfile = "$program-" . $upversion . ".zip";
 
-	lxfile_rm_rec("__path_program_htmlbase/help");
-	lxfile_mkdir("help");
+ // This dir is not needed anymore
+ //	lxfile_rm_rec("__path_program_htmlbase/help");
+ //	lxfile_mkdir("help");
 	lxfile_rm_rec("__path_program_htmlbase/htmllib/script");
 	lxfile_rm_rec("__path_program_root/pscript");
 
 	$saveddir = getcwd();
-	lxfile_rm_rec("__path_program_htmlbase/download");
+//  Keep older versions
+//	lxfile_rm_rec("__path_program_htmlbase/download");
 	lxfile_mkdir("download");
 	chdir("download");
 	log_cleanup("Downloading $programfile");
@@ -171,22 +173,35 @@ function fixDataBaseIssues()
 	db_set_default_variable('client', 'priv_q_maindomain_num', 'priv_q_domain_num');
 	db_set_default("servermail", "domainkey_flag", "on");
 
-	log_cleanup("- Fix resourceplan settings in database");
-	migrateResourceplan('domain');
-	$sq->rawQuery("update resourceplan set realname = nname where realname = ''");
-	$sq->rawQuery("update resourceplan set realname = nname where realname is null");
-	lxshell_php("../bin/common/fixresourceplan.php");
-
-	log_cleanup("- Alter some database tables");
+//	log_cleanup("- Fix resourceplan settings in database");
+//	migrateResourceplan('domain');
 	// TODO: Check if this is still longer needed!
-	$sq->rawQuery("alter table sslcert change text_ca_content text_ca_content longtext");
-	$sq->rawQuery("alter table sslcert change text_key_content text_key_content longtext");
-	$sq->rawQuery("alter table sslcert change text_csr_content text_csr_content longtext");
-	$sq->rawQuery("alter table sslcert change text_crt_content text_crt_content longtext");
-	$sq->rawQuery("alter table mailaccount change ser_forward_a ser_forward_a longtext");
-	$sq->rawQuery("alter table dns change ser_dns_record_a ser_dns_record_a longtext");
-	$sq->rawQuery("alter table installsoft change ser_installappmisc_b ser_installappmisc_b longtext");
-	$sq->rawQuery("alter table web change ser_redirect_a ser_redirect_a longtext");
+//  $sq->rawQuery("update resourceplan set realname = nname where realname = ''");
+//	$sq->rawQuery("update resourceplan set realname = nname where realname is null");
+//	lxshell_php("../bin/common/fixresourceplan.php");
+
+// I think this is a fix in one of the versions below Kloxo 6.0 and not needed anymore.
+// ###############################################
+
+//	log_cleanup("- Alter some database tables");
+// TODO: Check if this is still longer needed!
+
+//	$sq->rawQuery("alter table sslcert change text_ca_content text_ca_content longtext");
+//	$sq->rawQuery("alter table sslcert change text_key_content text_key_content longtext");
+//	$sq->rawQuery("alter table sslcert change text_csr_content text_csr_content longtext");
+//	$sq->rawQuery("alter table sslcert change text_crt_content text_crt_content longtext");
+
+// According to lxlib.php text_* is set as longtext
+// ###############################################
+
+
+//	$sq->rawQuery("alter table mailaccount change ser_forward_a ser_forward_a longtext");
+//	$sq->rawQuery("alter table dns change ser_dns_record_a ser_dns_record_a longtext");
+//	$sq->rawQuery("alter table installsoft change ser_installappmisc_b ser_installappmisc_b longtext");
+//	$sq->rawQuery("alter table web change ser_redirect_a ser_redirect_a longtext");
+
+// According to lxlib.php ser_* is set as longtext
+// ###############################################
 
 
 	// New since 6.2.x we do not need this anymore
