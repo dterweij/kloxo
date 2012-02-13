@@ -5030,6 +5030,7 @@ function setDefaultPages()
     lxfile_unix_chown_rec('/usr/local/lxlabs/kloxo/httpdocs/login/', 'lxlabs:lxlabs');
     lxfile_unix_chmod_rec('/usr/local/lxlabs/kloxo/httpdocs/login/', '0644');
     lxfile_unix_chmod('/usr/local/lxlabs/kloxo/httpdocs/login', '0755');
+    lxfile_unix_chmod('/usr/local/lxlabs/kloxo/httpdocs/login/images', '0755');
 
 	$usersourcezip = realpath("../file/user-skeleton.zip");
 	$usertargetzip = "/home/kloxo/user-httpd/user-skeleton.zip";
