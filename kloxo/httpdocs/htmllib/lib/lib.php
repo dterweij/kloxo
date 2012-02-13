@@ -2,6 +2,8 @@
 
 function getNumForString($name)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$num = 0;
 	for($i = 0; $i < strlen($name); $i++) {
 		$num += ord($name[$i]) * $i;
@@ -13,11 +15,14 @@ function getNumForString($name)
 
 function is_openvz()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	return lxfile_exists("/proc/user_beancounters");
 }
 
 function auto_update()
 {
+    // Auto Update Kloxo when user turned this on
 	global $gbl, $sgbl, $login, $ghtml; 
 	$gen = $login->getObject('general');
 	if ($gen->generalmisc_b->isOn('autoupdate')) {
@@ -27,7 +32,9 @@ function auto_update()
 		}
 	} else {
         // Remove timezone warning
-        date_default_timezone_set("UTC");		
+        date_default_timezone_set("UTC");
+
+        // ToDo: Make this user configurable. Auto Update runs at the 10th day of the month
         if ((date('d') == 10) && !checkIfLatest()) {
 			$latest = getLatestVersion();
 			$msg = "New Version $latest Available for $sgbl->__var_program_name";
@@ -48,20 +55,20 @@ function print_head_image()
 		return;
 	}
 
-	?> <link href="/img/skin/kloxo/feather/default/feather.css" rel="stylesheet" type="text/css" /> <?php 
-	print("<table class='bgtop3' width=100% cellpadding=0 cellspacing=0 style=\"background:url(/img/skin/kloxo/feather/default/invertfeather.jpg)\"> ");
-	print("<tr  ><td width=100% id='td1' > </td> ");
+    print('<link href="/img/skin/kloxo/feather/default/feather.css" rel="stylesheet" type="text/css" />') . PHP_EOL;
+	print("<table class='bgtop3' width='100%' cellpadding='0' cellspacing='0' style='background:url(/img/skin/kloxo/feather/default/invertfeather.jpg)'> "). PHP_EOL;
+	print("<tr><td width='100%' id='td1' >&nbsp;</td>"). PHP_EOL;
 
 	if ($login->getSpecialObject('sp_specialplay')->isOn('simple_skin')) {
 		$v =  create_simpleObject(array('url' => "javascript:top.mainframe.logOut()", 'purl' => '&a=updateform&sa=logout', 'target' => null));
-		print("<td valign=top>");
-		print("<a href=javascript:top.mainframe.logOut()>Logout </a>");
+		print("<td valign='top'>"). PHP_EOL;
+		print("<a href='javascript:top.mainframe.logOut()'>Logout</a>"). PHP_EOL;
 		//$ghtml->print_div_button_on_header(null, true, 0, $v);
-		print("</td>");
+		print("</td>". PHP_EOL);
 	}
-	print("</tr>");
-	print("<tr><td colspan=3 class='bg2'></td></tr>");
-	print("</table> ");
+	print("</tr>"). PHP_EOL;
+	print("<tr><td colspan='3' class='bg2'></td></tr>"). PHP_EOL;
+	print("</table>"). PHP_EOL;
 }
 
 function getIncrementedValueFromTable($table, $column)
@@ -75,7 +82,6 @@ function getIncrementedValueFromTable($table, $column)
 function http_is_self_ssl()
 {
 	return (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on'));
-
 }
 
 function core_installWithVersion($path, $file, $ver)
@@ -93,6 +99,8 @@ function core_installWithVersion($path, $file, $ver)
 
 function download_thirdparty()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $sgbl;
 	$prgm = $sgbl->__var_program_name;
 	// Fixes #303 and #304
@@ -183,6 +191,8 @@ function file_put_between_comments($username, $stlist, $endlist, $startstring, $
 
 function lxfile_cp_if_not_exists($src, $dst)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	if (!lxfile_exists($dst)) {
 		lxfile_cp($src, $dst);
 	}
@@ -226,6 +236,7 @@ function monitor_load()
 
 function log_load()
 {
+    // ToDo: No function usage found.. Can be deleted?
 
 	$mess = os_getLoadAvg();
 	
@@ -243,7 +254,9 @@ function log_load()
 }
 
 function lxGetTimeFromString($line)
-{	
+{
+    // ToDo: No function usage found.. Can be deleted?
+
 	///2006-03-10 07:00:01
 	$line = trimSpaces($line);
 	$list = explode(" ", $line);
@@ -270,6 +283,8 @@ function recursively_get_file($dir, $file)
 
 function get_com_ob($obj)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$ob = new Remote();
 	$ob->com_object = $obj;
 	return $ob;
@@ -386,10 +401,10 @@ function print_favorites()
 			$$vvar = isset($l[$vvar]) ? $l[$vvar] : '';
 		}
 		if ($ttype == 'separator') {
-			$res .= "<tr valign=top style=\"border-width:1; background:url($back/a.gif);\"> <td ></td> </tr>";
+			$res .= "<tr valign='top' style='border-width:1; background:url($back/a.gif);'><td></td></tr>". PHP_EOL;
 		}
 		else {
-			$res .= "<tr valign=top style=\"border-width:1; background:url($back/a.gif);\"> <td > <span title=\"$ac_descr[2] for $__t_identity\"> <img width=16 height=16 src=$_t_image> <a href=$url target=$target>  $str $tag</a></span></td> </tr>";
+			$res .= "<tr valign='top' style='border-width:1; background:url($back/a.gif);'><td ><span title='$ac_descr[2] for $__t_identity'><img width='16' height='16' src='$_t_image'><a href='$url' target='$target'>  $str $tag</a></span></td></tr>". PHP_EOL;
 		}
 	}
 	return $res;
@@ -421,7 +436,6 @@ function print_quick_action($class)
 	$res = null;
 	$res .= " <tr style=\"background:#d6dff7\"> <td ><form name=quickaction method=$sgbl->method target=mainframe action=\"/htmllib/lbin/redirect.php\">";
 	$desc = $ghtml->get_class_description($class);
-	//$res .= "$desc[2] <br> ";
 	if (!$object->isLogin()) {
 		$res .= "<select $stylestr name=frm_redirectname>";
 		foreach($namelist as $l){
@@ -438,7 +452,6 @@ function print_quick_action($class)
 		}
 		$ac_descr = $ghtml->getActionDetails($a, null, $iconpath, $path, $post, $_t_file, $_t_name, $_t_image, $__t_identity);
 		$a = base64_encode($a);
-		//$res .= "<option value=$a style='background-image: url($_t_image); background-repeat:no-repeat; left-padding: 35px; text-align:right'>  $ac_descr[2] </option>";
 		$desc = substr($ac_descr[2], 0, 20);
 		$res .= '<option '.$stylestr.' value="'.$a.'" >'.$desc.'</option>';
 	}
@@ -449,8 +462,8 @@ function print_quick_action($class)
 
 function addtoEtcHost($request, $ip)
 {
-	//$iplist = os_get_allips();
-	//$ip = $iplist[0];
+    // ToDo: No function usage found.. Can be deleted?
+
 	$comment = "added by kloxo dnsless preview";
 	lfile_put_contents("/etc/hosts", "$ip $request #$comment\n", FILE_APPEND);
 }
@@ -465,6 +478,8 @@ function fill_string($string, $num = 33)
 
 function removeFromEtcHost($request)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$comment = "added by kloxo dnsless preview";
 	$list = lfile_trim("/etc/hosts");
 	$nlist = null;
@@ -516,6 +531,8 @@ function get_file_from_path($path)
 }
 function get_total_files_in_directory($dir)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	dprint("$dir\n");
 	$dir = expand_real_root($dir);
 	$list = lscandir_without_dot($dir);
@@ -524,6 +541,8 @@ function get_total_files_in_directory($dir)
 
 function convert_favorite()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_php("../bin/common/favoriteconvert.php");
 }
 
@@ -542,26 +561,8 @@ function fix_meta_character($v)
 function changeDriver($server, $class, $pgm)
 {
 	global $gbl, $sgbl, $login, $ghtml; 
-
-	// Temporary hack. Somehow mysql doesnt' work in the backend.
-
 	lxshell_return("__path_php_path", "../bin/common/setdriver.php", "--server=$server", "--class=$class", "--driver=$pgm");
 	return;
-
-	$server = $login->getFromList('pserver', $server);
-
-	$os = $server->ostype;
-
-	$dr = $server->getObject('driver');
-
-	$v = "pg_$class";
-	$dr->driver_b->$v = $pgm;
-
-	$dr->setUpdateSubaction();
-
-	$dr->write();
-
-	print("Successfully changed Driver for $class to $pgm\n");
 }
 
 function changeDriverFunc($server, $class, $pgm)
@@ -639,14 +640,11 @@ function PrepareRoundCubeDb()
 	$content = lfile_get_contents($roundcubefile);
 	$content = str_replace("ENGINE=INNODB", "", $content);
 
-	// --- better create table logic --> also see updateDatabaseProperly()
-	
+
 	$content = str_replace(" IF NOT EXISTS", "", $content);
 
 	$content = str_replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS", $content);
 	$content = str_replace("CREATE DATABASE roundcubemail;", "CREATE DATABASE IF NOT EXISTS roundcubemail;", $content);
-	// no need 'IF NOT EXISTS' for INDEX
-//	$content = str_replace("CREATE INDEX", "CREATE INDEX IF NOT EXISTS", $content);
 
 	lfile_put_contents($roundcubefile, $content);
 
@@ -682,11 +680,9 @@ function PrepareRoundCubeDb()
 	$pass = null;
 	$pstring = null;
 
-	//--- to make sure always 644
 	system("chmod 644 /home/kloxo/httpd/webmail/roundcube/config/db.inc.php");
 }
 
-// --- new function with 'roundcube' style to replace 'old'
 function PrepareHordeDb()
 {
 	global $gbl, $sgbl, $login, $ghtml;
@@ -716,15 +712,12 @@ function PrepareHordeDb()
 	$content = str_replace("USE horde;", "USE horde_groupware;", $content);
 	$content = str_replace(") ENGINE = InnoDB;", ");", $content);
 
-	// --- better create table logic --> also see updateDatabaseProperly()
-	
+
 	$content = str_replace(" IF NOT EXISTS", "", $content);
 
 	$content = str_replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS", $content);
 	$content = str_replace("CREATE DATABASE horde;", "CREATE DATABASE IF NOT EXISTS horde_groupware;", $content);
 	$content = str_replace("CREATE DATABASE horde_groupware;", "CREATE DATABASE IF NOT EXISTS horde_groupware;", $content);
-	// no need 'IF NOT EXISTS' for INDEX
-//	$content = str_replace("CREATE INDEX", "CREATE INDEX IF NOT EXISTS", $content);
 
 	lfile_put_contents($hordefile, $content);
 
@@ -760,7 +753,6 @@ function PrepareHordeDb()
 	$pass = null;
 	$pstring = null;
 
-	//--- to make sure always 644
 	system("chmod 644 /home/kloxo/httpd/webmail/horde/config/conf.php");
 }
 
@@ -802,11 +794,7 @@ FTC;
 	lxfile_generic_chown($tmp, "root:root");
 	lxfile_generic_chmod($tmp, "0710");
 
-	//system("pkill -f fetchmail");
-	//sleep(10);
 	exec_with_all_closed("fetchmail -d0 -e 15 -f $tmp; rm $tmp");
-	//sleep(20);
-	//lunlink($tmp);
 }
 
 function send_system_monitor_message_to_admin($prog)
@@ -826,7 +814,6 @@ function send_system_monitor_message_to_admin($prog)
 function check_if_port_on($port)
 {
 	$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-	//socket_set_nonblock($socket);
 	$ret = socket_connect($socket, "127.0.0.1", $port);
 	socket_close($socket);
 	if (!$ret) { return false; }
@@ -835,6 +822,8 @@ function check_if_port_on($port)
 
 function installAppPHP($var, $cmd)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	// TODO LxCenter: The created dir and file should be owned by the user
 	global $gbl, $sgbl, $login, $ghtml; 
 	$domain = $var['domain'];
@@ -851,7 +840,6 @@ function installAppPHP($var, $cmd)
 	}
 
 	if ($sgbl->dbg > 0) {
-		//$cmd = "$cmd | elinks -no-home 1 -dump ";
 		$cmd = "php $cmd | lynx -stdin -dump ";
 	} else {
 		$cmd = "php $cmd > $file";
@@ -887,6 +875,9 @@ function validate_domain_name($name)
 
 function execinstallappPhp($domain, $appname, $cmd)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
+
 	// TODO LxCenter: The created dir and file should be owned by the user
 	global $gbl, $sgbl, $login, $ghtml; 
 	lxfile_mkdir("/home/httpd/$domain/httpdocs/__installapplog");
@@ -900,7 +891,6 @@ function execinstallappPhp($domain, $appname, $cmd)
 	}
 
 	if ($sgbl->dbg > 0) {
-		//$cmd = "$cmd | elinks -no-home 1 -dump ";
 		$cmd = "$cmd | lynx -stdin -dump ";
 	} else {
 		$cmd = "$cmd > $file";
@@ -911,6 +901,8 @@ function execinstallappPhp($domain, $appname, $cmd)
 
 function update_self()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	exec_with_all_closed("$sgbl->__path_php_path ../bin/update.php");
 }
@@ -926,6 +918,8 @@ function get_name_without_template($name)
 
 function check_smtp_port()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	if ($sgbl->is_this_slave()) { return; }
 	$sq = new Sqlite(null, 'client');
@@ -1016,10 +1010,6 @@ function call_with_flag($func)
 		return;
 	}
 
-	// MR --- the problem is no /usr/local/lxlabs/kloxo/etc/flag dir in slave
-	// need more investigate about it that no flag dir in slave
-	// meanwhile use this logic
-
 	$path = "__path_program_etc/flag";
 
 	call_user_func($func);
@@ -1046,11 +1036,6 @@ function check_if_many_server()
 {
 	global $gbl, $sgbl, $login, $ghtml; 
 
-	//if ($sgbl->isDebug()) { return true; }
-	//$lic = $login->getObject('license');
-	//$lic = $lic->licensecom_b;
-	//return ($lic->lic_pserver_num > 1);
-
 	$sql = new Sqlite(null, "pserver");
 	$res = $sql->getTable(array('nname'));
 	$rs = get_namelist_from_arraylist($res);
@@ -1062,6 +1047,8 @@ function check_if_many_server()
 
 function get_all_client()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$sql = new Sqlite(null, "client");
 	$res = $sql->getTable(array('nname'));
 	$rs = get_namelist_from_arraylist($res);
@@ -1096,6 +1083,8 @@ function change_config($file, $var, $val)
 
 function removeQuotes($val)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$val = strfrom($val, '"');
 	$val = strtil($val, '"');
 	return $val;
@@ -1103,11 +1092,15 @@ function removeQuotes($val)
 
 function checkExistingUpdate()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	exit_if_another_instance_running();
 }
 
 function listFile($path)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $global_list_path;
 	if (lis_dir($path)) {
 		return;
@@ -1122,6 +1115,8 @@ function listFile($path)
 
 function execCom($ob, $func, $exception)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	try {
 		$ret = $ob->$func();
 	} catch (exception $e) {
@@ -1142,6 +1137,8 @@ function fix_vgname($vgname)
 
 function restart_mysql()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	exec_with_all_closed("service mysqld restart >/dev/null 2>&1");
 }
 
@@ -1152,6 +1149,8 @@ function restart_service($service)
 
 function remove_old_serve_file()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	log_log("remove_oldfile", "Removing old files");
 	$list = lscandir_without_dot("__path_serverfile/tmp");
 	foreach($list as $l) {
@@ -1161,6 +1160,8 @@ function remove_old_serve_file()
 
 function fix_flag_variable($table, $flagvariable)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$sq = new Sqlite(null, $table);
 	$sq->rawQuery("update $table set $flagvariable = 'done' where $flagvariable = 'doing'");
 
@@ -1168,6 +1169,9 @@ function fix_flag_variable($table, $flagvariable)
 
 function upload_file_to_db($dbtype, $dbhost, $dbuser, $dbpassword, $dbname, $file)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
+
 	mysql_upload_file_to_db($dbhost, $dbuser, $dbpassword, $dbname, $file);
 }
 
@@ -1204,6 +1208,8 @@ function mysql_upload_file_to_db($dbhost, $dbuser, $dbpassword, $dbname, $file)
 
 function testAllServersWithMessage()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	print("Testing All servers.... ");
 	try {
 		testAllServers();
@@ -1219,6 +1225,9 @@ function testAllServersWithMessage()
 
 function testAllServers()
 {
+    // ToDo: No function usage found.. Can be deleted?
+    // See above function
+
 	$sq = new Sqlite(null, 'pserver');
 	$res = $sq->getTable(array('nname'));
 	$nlist = get_namelist_from_arraylist($res);
@@ -1256,7 +1265,6 @@ function exec_with_all_closed_output($cmd)
 	return trim($res);
 }
 
-// Convert Com to Php Array.
 function convertCOMarray($array)
 {
 	foreach($array as $v) {
@@ -1369,11 +1377,6 @@ function validate_ipaddress($ip)
 	}
 }
 
-function make_sure_directory_is_lxlabs($file)
-{
-
-}
-
 function addToUtmp($ses, $dbaction)
 {
 	$nname = implode('_', array($ses->nname, $ses->parent_clname));
@@ -1406,9 +1409,6 @@ function getRealhostName($name)
 	return $res[0]['realhostname'];
 }
 
-// This is mainly used for filserver. If the remote system is localhost, then return localhost itself,
-// which means the whole thing is local. Otherwise return one of the ips that can be used to communicate with our server.
-// The $v is actually the remote server that we are sending to.
 function getOneIPForLocalhost($v)
 {
 	if (isLocalhost($v)) {
@@ -1425,6 +1425,8 @@ function getOneIPForLocalhost($v)
 
 function getInternalNetworkIp($v)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$sql = new Sqlite(null, "pserver");
 
 	$server = $sql->rawQuery("select * from pserver where nname = '$v'");
@@ -1505,6 +1507,8 @@ function tgz_to_fileserv($dir, $fillist)
 
 function get_admin_license_var()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$list = get_license_resource();
 	foreach($list as &$__l) {
 		$__l = "used_q_$__l";
@@ -1526,6 +1530,8 @@ function get_license_resource()
 
 function cp_fileserv_list($root, $list)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	foreach($list as $l) {
 		$fp = "$root/$l";
 		$res[$fp] = cp_fileserv($fp);
@@ -1570,33 +1576,6 @@ function do_zip_to_fileserv($type, $arg)
 	$basebase = basename($arg[0]);
 
 	$base = basename(ltempnam("__path_serverfile/tmp", $basebase));
-/*
-	// Create the pass file now itself so that it isn't unwittingly created again.
-
-	if ($type === 'zip') {
-		$vd = $arg[0];
-		$list = $arg[1];
-		dprint("zipping $vd: " . implode(" ", $list) . " \n");
-		$ret = lxshell_zip($vd, "__path_serverfile/tmp/$base.tmp", $list);
-		lrename("__path_serverfile/tmp/$base.tmp", "__path_serverfile/tmp/$base");
-	} else if ($type === 'tgz') {
-		$vd = $arg[0];
-		$list = $arg[1];
-		dprint("tarring $vd: " . implode(" ", $list) . " \n");
-		$ret = lxshell_tgz($vd, "__path_serverfile/tmp/$base.tmp", $list);
-		lrename("__path_serverfile/tmp/$base.tmp", "__path_serverfile/tmp/$base");
-	} else if ($type === 'tar') {
-		$vd = $arg[0];
-		$list = $arg[1];
-		dprint("tarring $vd: " . implode(" ", $list) . " \n");
-		$ret = lxshell_tar($vd, "__path_serverfile/tmp/$base.tmp", $list);
-		lrename("__path_serverfile/tmp/$base.tmp", "__path_serverfile/tmp/$base");
-	}
-
-	if ($ret) {
-		throw new lxException("could_not_zip_dir", '', $vd);
-	}
-*/
 
 	$vd = $arg[0];
 	$list = $arg[1];
@@ -1867,6 +1846,8 @@ function rrd_graph_single($type, $file, $time)
 
 function rrd_graph_vps($type, $file, $time)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $global_dontlogshell;
 	global $global_shell_error, $global_shell_ret, $global_shell_out;
 	$global_dontlogshell = true;
@@ -1987,8 +1968,6 @@ function slow_print($file)
 	while(!feof($fp)) {
 		print(fread($fp, 8092));
 		flush();
-		//usleep(600 * 1000);
-		//sleep(1);
 	}
 	fclose($fp);
 }
@@ -2105,12 +2084,11 @@ function fix_rhn_sources_file()
 }
 
 
-function mkdir_ifnotExist($name)
-{
-}
 
 function opt_get_single_flag($opt, $var)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$ret = false;
 	if (isset($opt[$var]) && $opt[$var] === $var) {
 		$ret = true;
@@ -2121,6 +2099,8 @@ function opt_get_single_flag($opt, $var)
 
 function opt_get_default_or_set($opt, $val, $def)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	if (!isset($opt[$val])) {
 		return $def;
 	} else {
@@ -2254,6 +2234,8 @@ function lx_core_lock_check_only($prog, $file = null)
 
 function appvault_dbfilter($inputfile, $outputfile, $cont)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	$val = lfile_get_contents($inputfile);
 	$fullurl = "{$cont['domain']}/{$cont['installdir']}";
@@ -2306,16 +2288,9 @@ function appvault_dbfilter($inputfile, $outputfile, $cont)
 	$val = str_replace("__lx_url",$cont['domain'], $val);
 	$val = str_replace("__lx_domain_name",$cont['domain'], $val);
 	$val = str_replace("__lx_action",$cont['action'],$val);
-	//dprint("Writing to file {$cont['output']}\n");
-	//dprint("{$cont['output']} : $val\n");
 	lfile_put_contents($outputfile, $val);
 }
 
-function installLxetc()
-{
-// TODO: Remove this function
-	return;
-}
 
 function lightyApacheLimit($server, $var)
 {
@@ -2379,6 +2354,8 @@ function getLastFromList(&$list)
 
 function getFirstKeyFromList(&$list)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	if (!$list) {
 		return null;
 	}
@@ -2399,11 +2376,15 @@ function getFirstFromList(&$list)
 
 function getBestLocationFromServer($server, $list)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	return rl_exec_get(null, $server, 'get_best_location', array($list));
 }
 
 function get_best_location($list)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	dprintr($list);
 	$lvmlist = null;
 
@@ -2473,29 +2454,29 @@ function vg_diskfree($vgname)
 
 function lvm_disksize($lvmpath)
 {
-	//$out = exec_with_all_closed_output("lvdisplay -c /dev/$vgname/$lvmname");
-	//$out = explode(":", $out);
-	//return $out[6] / 1024;
-
 	$out = exec_with_all_closed_output("/usr/sbin/lvs --nosuffix --units b --noheadings -o lv_size $lvmpath");
 	$out = trim($out);
 	return $out/ (1024 * 1024);
-
-
 }
 
 function lo_remove($loop)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("losetup", "-d", $loop);
 }
 
 function lvm_remove($lvmpath)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("lvremove", "-f", $lvmpath);
 }
 
 function lvm_create($vgname, $lvmname, $size)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$vgname = fix_vgname($vgname);
 	$lvmname = basename($lvmname);
 	return lxshell_return("lvcreate", "-L{$size}M", "-n$lvmname", $vgname);
@@ -2503,6 +2484,8 @@ function lvm_create($vgname, $lvmname, $size)
 
 function lvm_extend($lvpath, $size)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	global $global_shell_error;
 
@@ -2591,8 +2574,6 @@ function getFullVersionList($till = null)
 	}
 
 	$res = curl_get_file("$progname/version.txt");
-	//dprintr($res);
-
 
 	if (!$res) {
 		throw new lxException('could_not_get_version_list', '');
@@ -2669,7 +2650,6 @@ function download_source($file)
 function download_from_ftp($ftp_server, $ftp_user, $ftp_pass, $file, $localfile)
 {
 	// issue #39 - call new function inside linuxfslib.php
-//	$fn = ftp_connect(ftp_server);
 	$fn = lxftp_connect(ftp_server);
 	
 	$login = ftp_login($fn, $ftp_user, $ftp_pass);
@@ -2687,6 +2667,8 @@ function download_from_ftp($ftp_server, $ftp_user, $ftp_pass, $file, $localfile)
 
 function incrementVar($table, $var, $min, $increment)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$sq = new Sqlite(null, $table);
 	$res = $sq->rawQuery("select $var from $table order by ($var + 0) DESC limit 1");
 
@@ -2726,6 +2708,8 @@ function download_file($url, $localfile = null)
 
 function se_submit($contact, $dom, $email)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$tmpfile = lx_tmp_file("se_submit_$dom");
 	include "sesubmit/engines.php";
 	foreach($enginelist as $e => $k) {
@@ -2806,6 +2790,8 @@ function lx_mail($from, $to, $subject, $message, $extra = null)
 
 function download_and_print_file($server, $file)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$ch = curl_init("$server/$file");
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -2842,7 +2828,7 @@ function get_title()
 	} else {
 		$enterprise = "Single Server";
 	}
-	if (file_exists(".svn")) {
+	if (file_exists(".git")) {
 		$enterprise .= " Development";
 	}
 	$title = "$host $progname $enterprise $title" ;
@@ -2906,6 +2892,8 @@ function callInBackground($func, $arglist)
 
 function callObjectInBackground($object, $func)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$res = new Remote();
 	$res->__type = 'object';
 	$res->__exec_object = $object;
@@ -2924,7 +2912,6 @@ function get_with_cache($file, $cmdarglist)
 
 	lxfile_mkdir("__path_program_root/cache");
 	$tim = 120;
-	//$tim = 1;
 	$c = lfile_get_contents($file);
 	if (((time() - $stat['mtime']) > $tim) || !$c) {
 		// Hack hack.. The lxshell_output does not take strings. You need to supply them together.
@@ -2965,19 +2952,6 @@ function copy_script()
 	lxfile_unix_chmod_rec("/script", "0755");
 }
 
-function copy_image()
-{
-	// Not needed anymore - LxCenter
-	return; 
-	global $gbl, $sgbl, $login, $ghtml; 
-	$prgm = $sgbl->__var_program_name;
-
-	lxfile_cp_content("tmpimg/", "img/image/collage/button/");
-	$list = lscandir_without_dot("img/skin/$prgm/feather/");
-	foreach($list as $l) {
-		lxfile_cp_content("tmpskin/", "img/skin/$prgm/feather/$l");
-	}
-}
 
 function getAdminDbPass()
 {
@@ -3029,46 +3003,22 @@ function if_customer_complain_and_exit()
 
 }
 
-function getClassAndName($name)
-{
-	return getParentNameAndClass($name);
-}
-
-function getParentNameAndClass($pclname)
-{
-	return dogetParentNameAndClass($pclname);
-}
-
 function dogetParentNameAndClass($pclname)
 {
 	if (csa($pclname, "-")) { $string = "-"; } else { $string = "_s_vv_p_"; }
-
-	//$vlist = explode("_s_vv_p_", $pclname);
 	$vlist = explode($string, $pclname);
 	$pclass = array_shift($vlist);
-	//$pname = implode("_s_vv_p_", $vlist);
 	$pname = implode($string, $vlist);
-
-	//dprint($pclass);
-
 	return array($pclass, $pname);
-
 }
 
 function doOldgetParentNameAndClass($pclname)
 {
 	if (csa($pclname, "_s_vv_p_")) { $string = "_s_vv_p_"; } else { $string = "-"; }
-
-	//$vlist = explode("_s_vv_p_", $pclname);
 	$vlist = explode($string, $pclname);
 	$pclass = array_shift($vlist);
-	//$pname = implode("_s_vv_p_", $vlist);
 	$pname = implode($string, $vlist);
-
-	//dprint($pclass);
-
 	return array($pclass, $pname);
-
 }
 
 function if_not_admin_complain_and_exit()
@@ -3279,15 +3229,6 @@ function FindRightPosition($fp, $fsize, $oldtime, $newtime, $func)
 		return -1;
 	}
 
-/*
-	// This logic is actually wrong. This is returning if the oldtime is less than first time, 
-	// but that isn't is a necessary criteria. The file could be so small as to start from middle of the day.
-	if ($time < $readtime) {
-		dprint("Less than Beginning. \n");
-		return 0;
-	}
-*/
-
 	fseek($fp, 0, SEEK_END);
 	takeToStartOfLine($fp);
 	$string = fgets($fp);
@@ -3403,15 +3344,6 @@ function lxlabsFindRightPosition($fp, $fsize, $oldtime, $newtime)
 		print("Date: " .@ date('Y-m-d: H:i:s', $newtime) . " " . @ date('Y-m-d: h:i:s', $begtime). "\n");
 		return -1;
 	}
-
-/* 	
-	// This logic is actually wrong. This is returning if the oldtime is less than first time, 
-	// but that isn't is a necessary criteria. The file could be so small as to start from middle of the day.
-	if ($time < $readtime) {
-		dprint("Less than Beginning. \n");
-		return 0;
-	}
-*/
 
 	fseek($fp, 0, SEEK_END);
 	lxlabs_marker_firstofline($fp);
@@ -3602,12 +3534,6 @@ function createrows($list)
 	return $fields;
 }
 
-function initDbLoginPre()
-{
-	$log_pre = "<p> Welcome to <%programname%>  </p><p>Use a valid username and password to gain access to the console. </p> ";
-	db_set_default('general', 'login_pre', $log_pre);
-}
-
 function fixResourcePlan()
 {
 	global $gbl, $sgbl, $login, $ghtml; 
@@ -3682,7 +3608,6 @@ function db_set_default_variable($table, $variable, $default, $extra = null)
 	}
 	$sq->rawQuery("update $table set $variable = $default where $variable = '' $extra");
 	$sq->rawQuery("update $table set $variable = $default where $variable is null $extra");
-	//$sq->rawQuery("update $table set $variable = $default where $variable = '-' $extra");
 }
 
 function updateTableProperly($__db, $table, $rr, $content)
@@ -3966,10 +3891,7 @@ function addLineIfNotExistInside($filename, $pattern, $comment)
 		if ($comment) {
 			lfile_put_contents($filename, "\n\n\n", FILE_APPEND);
 		}
-	} else {
-		//dprint("Pattern '$pattern' Already present in $filename\n");
 	}
-
 }
 
 function fix_all_mysql_root_password()
@@ -4073,50 +3995,7 @@ function checkClusterDiskQuota()
 	lxfile_generic_chown("..", "lxlabs");
 }
 
-function find_closest_mirror()
-{
-    // TODO LxCenter: No call to this function found.
-	dprint("find_closest_mirror htmllib>lib>lib.php\n"); 
-	$v = curl_general_get("lxlabs.com/mirrorlist/");
-	$v = trim($v);
-	$vv = explode("\n", $v);
-	$out = null;
-	foreach($vv as $k => $l) {
-		$l = trim($l);
-		if (!$l) { continue; }
-		$verify = curl_general_get("$l/verify.txt");
-		$verify = trim($verify);
-		if (csa($verify, "lxlabs_mirror_verify")) {
-			$out[] = $l;
-		}
-	}
-	if (!$out) { return null; }
 
-	foreach($out as $l) {
-		$hop[$l] = find_hop($l);
-	}
-
-	asort($hop);
-	$v = getFirstKeyFromList($hop);
-	return $v;
-
-}
-
-function find_hop($l)
-{
-	global $global_dontlogshell;
-	$global_dontlogshell = true;
-	$out = lxshell_output("ping -c 1 $l");
-	$list = explode("\n", $out);
-	foreach($list as $l) {
-		$l = trim($l);
-		if (csb($l, "rtt")) { continue; }
-		$l = trimSpaces($l);
-		$ll = explode(" ", $l);
-		$lll = explode("/", $ll[3]);
-		return round($lll[1], 1);;
-	}
-}
 
 function file_server($fd, $string)
 {
@@ -4135,8 +4014,6 @@ function print_or_write($fd, $buff)
 	} else {
 		print($buff);
 		flush();
-		// Lighttpd bug. Lighty doesn't flush even if you do a flush.
-		//sleep(2);
 		return 1;
 	}
 }
@@ -4243,12 +4120,8 @@ function trafficGetIndividualObjectTotal($list, $firstofmonth, $today, $name)
 
 	foreach((array) $list as $t) {
 
-		//if (!(csa($t->timestamp, "Aug") && csa($t->timestamp, "2007"))) {
-			//continue;
-		//}
 
 		list($nname, $oldtime, $newtime) = explode(":", $t->nname);
-		//dprint("$oldtime:$newtime: $firstofmonth: $t->timestamp $today\n");
 
 		if($oldtime >= $firstofmonth && $oldtime < $today) {
 			dprint(@ strftime("%c" , "$oldtime"). ": ");
@@ -4305,18 +4178,10 @@ function findServerTraffic()
 
 }
 
-function createMultipLeVps($param)
-{
-	$adminpass = $param['vps_admin_password_f'];
-	$template = $param['vps_template_name_f'];
-	$one_ip = $param['vps_one_ipaddress_f'];
-	$base = $param['vps_basename_f'];
-	$count = $param['vps_count_f'];
-	lxshell_background("__path_php_path", "../bin/multicreate.php", "--admin-password=$adminpass", "--v-template_name=$template", "--count=$count", "--basename=$base", "--v-one_ipaddress=$one_ip");
-}
 
 function collect_quota_later()
 {
+    // ToDo: No function usage found.. Can be deleted?
 	createRestartFile("lxcollectquota");
 }
 
@@ -4334,9 +4199,11 @@ function setup_ssh_channel($source, $destination, $actualname)
 
 function exec_vzmigrate($vpsid, $newserver, $ssh_port)
 {
+
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $global_shell_out, $global_shell_error, $global_shell_ret;
 
-	//$ret = lxshell_return("vzmigrate", "--ssh=\"-p $ssh_port\"", "-r", "yes", $newserver, $vpsid);
 	$username = '__system__';
 
 	$ssh_port = trim($ssh_port);
@@ -4344,13 +4211,13 @@ function exec_vzmigrate($vpsid, $newserver, $ssh_port)
 	if ($ssh_port !== "22")  {
 		$ssh_string = "--ssh=\"-p $ssh_port\"";
 	}
-	//do_exec_system($username, null, "vzmigrate --online $ssh_string -r yes $newserver $vpsid", $out, $err, $ret, null);
 	do_exec_system($username, null, "vzmigrate $ssh_string -r yes $newserver $vpsid", $out, $err, $ret, null);
 	return array($ret, $global_shell_error);
 }
 
 function getResourceOstemplate(&$vlist, $ttype = 'all')
 {
+    // ToDo Not used in Kloxo
 	$olist = vps::getVpsOsimage(null, "openvz");
 	$olist = array_keys($olist);
 	$xlist = vps::getVpsOsimage(null, "xen");
@@ -4365,6 +4232,8 @@ function getResourceOstemplate(&$vlist, $ttype = 'all')
 
 function get_scpid()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$home = os_get_home_dir("root");
 	$file = "$home/.ssh/id_dsa";
 	if (!lxfile_exists($file)) {
@@ -4375,12 +4244,16 @@ function get_scpid()
 
 function setup_knownhosts($cont)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$home = os_get_home_dir("root");
 	lfile_put_contents("$home/.ssh/known_hosts", "$cont\n", FILE_APPEND);
 }
 
 function setup_scpid($cont)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $global_dontlogshell;
 	$global_dontlogshell = true;
 	$home = os_get_home_dir("root");
@@ -4396,6 +4269,8 @@ function setup_scpid($cont)
 
 function remove_scpid($cont)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$home = os_get_home_dir("root");
 	$file = "$home/.ssh/authorized_keys2";
 	$list = lfile_trim($file);
@@ -4408,11 +4283,6 @@ function remove_scpid($cont)
 	}
 
 	lfile_put_contents($file, implode("\n", $nlist) . "\n");
-}
-
-function lxguard_clear($list)
-{
-
 }
 
 function lxguard_main($clearflag = false)
@@ -4441,7 +4311,6 @@ function lxguard_main($clearflag = false)
 
 	get_total($list, $total);
 
-	//dprintr($list['192.168.1.11']);
 
 	dprint_r("Debug: Total: " . $total .  "\n");
 	$deny = get_deny_list($total);
@@ -4483,6 +4352,8 @@ function lxguard_main($clearflag = false)
 
 function lxguard_save_hitlist($hl)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	include_once "htmllib/lib/lxguardincludelib.php";
 
 	lxfile_mkdir("__path_home_root/lxguard");
@@ -4494,33 +4365,13 @@ function lxguard_save_hitlist($hl)
 	lxguard_main();
 }
 
-// --- move from kloxo/httpdocs/htmllib/lib/updatelib.php
 
 function install_xcache($nolog = null)
 {
-	//--- issue 547 - xcache failed to install
-/*
-	return;
-	if (lxfile_exists("/etc/php.d/xcache.ini")) {
-		return;
-	}
-	if (lxfile_exists("/etc/php.d/xcache.noini")) {
-		return;
-	}
-
-	if (!lxfile_exists("../etc/flag/xcache_enabled.flg")) {
-		log_cleanup("- xcache flag not found, removing /etc/php.d/xcache.ini file");
-		lunlink("/etc/php.d/xcache.ini");
-	}
-*/
 	if (!$nolog) { log_cleanup("Install xcache if is not enabled"); }
  
 	if (lxfile_exists("../etc/flag/xcache_enabled.flg")) {
 		if (!$nolog) { log_cleanup("- Enabled status"); }
-//		$ret = lxshell_return("php -m | grep -i xcache");
-//		$ret = system("rpm -q php-xcache | grep -i 'not installed'");
-		// --- can not use lxshell_return because always return 127
-		// --- return 0 (= false) mean not found 'not installed'
 		exec("rpm -q php-xcache | grep -i 'not installed'", $out, $ret);
 		if ($ret !== false) {
 			if (!$nolog) { log_cleanup("- Installing"); }
@@ -4530,11 +4381,12 @@ function install_xcache($nolog = null)
 			if (!$nolog) { log_cleanup("- Already installed"); }
 		}		
 		// for customize?
-		lxfile_cp("../file/xcache.ini", "/etc/php.d/xcache.ini");
+        // ToDo: Remove this, just use shipped one from XCache package
+//		lxfile_cp("../file/xcache.ini", "/etc/php.d/xcache.ini");
 	}
 	else {
 		lxshell_return("yum", "-y", "remove", "php-xcache");
-		if (!$nolog) { log_cleanup("- Disabled status"); }
+		if (!$nolog) { log_cleanup("- Uninstalled"); }
 	}
 
 }
@@ -4553,16 +4405,22 @@ function fix_domainkey()
 
 function fix_move_to_client()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_php("../bin/fix/fixmovetoclient.php");
 }
 
 function addcustomername()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/misc/addcustomername.php");
 }
 
 function fix_phpini()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	log_cleanup("Fix php.ini");
 	log_cleanup("- Fix process");
 
@@ -4571,6 +4429,8 @@ function fix_phpini()
 
 function switchtoaliasnext()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	$driverapp = $gbl->getSyncClass(null, 'localhost', 'web');
 
@@ -4585,6 +4445,8 @@ function switchtoaliasnext()
 
 function fix_awstats()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	log_cleanup("Fix awstats");
 	log_cleanup("- Fix process");
 
@@ -4593,16 +4455,22 @@ function fix_awstats()
 
 function fixdomainipissue()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
 }
 
 function fixrootquota()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	system("setquota -u root 0 0 0 0 -a");
 }
 
 function fixtotaldiskusageplan()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	initProgram('admin');
 	$login->loadAllObjects('resourceplan');
@@ -4620,30 +4488,42 @@ function fixtotaldiskusageplan()
 
 function fixcmlistagain()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/common/generatecmlist.php");
 }
 function fixcmlist()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/common/generatecmlist.php");
 }
 
 function fixcgibin()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixcgibin.php");
 }
 
 function fixsimpledocroot()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixsimpldocroot.php");
 }
 
 function installSuphp()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/misc/installsuphp.php");
 }
 
 function fixadminuser()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixadminuser.php");
 }
 
@@ -4661,7 +4541,7 @@ function install_gd()
 		system("yum -y install php-gd");
 	}
 	else {
-		log_cleanup("- Already installed. No need to install");
+		log_cleanup("- Already installed.");
 	}
 	
 	$global_dontlogshell = false;
@@ -4669,23 +4549,23 @@ function install_gd()
 
 function fixphpinfo()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
 }
 
 function fixdirprotectagain()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
 }
 
 function fixdomainhomepermission()
 {
-	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
-}
+    // ToDo: No function usage found.. Can be deleted?
 
-function installgroupwareagain()
-{
-//	dprint("DEBUG: running Function installgroupwareagain in updatelib.php\n");
-//	lxshell_return("__path_php_path", "../bin/misc/lxinstall_hordegroupware_db.php");
+	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
 }
 
 function createOSUserAdmin()
@@ -4696,7 +4576,7 @@ function createOSUserAdmin()
 	 	log_cleanup("- User admin created");
 		os_create_system_user('admin', randomString(7), 'admin', '/sbin/nologin', "/home/admin");
 	} else {
-		log_cleanup("- User admin exists");
+		log_cleanup("- User admin already exist");
 	}
 }
 
@@ -4757,21 +4637,29 @@ function fixservice()
 }
 function fixsslca()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
 }
 
 function dirprotectfix()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/fix/fixdirprotect.php");
 }
 
 function cronfix()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	lxshell_return("__path_php_path", "../bin/cronfix.php");
 }
 
 function changetoclient()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	system("service xinetd stop");
 	lxshell_return("__path_php_path", "../bin/changetoclientlogin.phps");
@@ -4781,37 +4669,10 @@ function changetoclient()
 	createRestartFile($driverapp);
 }
 
-function fix_dns_zones()
-{
-	global $gbl, $sgbl, $login, $ghtml; 
-	return;
-
-	initProgram('admin');
-	$flag = "__path_program_root/etc/flag/dns_zone_fix.flag";
-	
-	if (lxfile_exists($flag)) {
-		return;
-	}
-	
-	lxfile_touch($flag);
-
-	$login->loadAllObjects('dns');
-	$list = $login->getList('dns');
-
-	foreach($list as $l) {
-		fixupDnsRec($l);
-	}
-	
-	$login->loadAllObjects('dnstemplate');
-	$list = $login->getList('dnstemplate');
-	
-	foreach($list as $l) {
-		fixupDnsRec($l);
-	}
-}
-
 function fixupDnsRec($l)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$l->dns_record_a = null;
 	
 	foreach($l->cn_rec_a as $k => $v) {
@@ -4863,29 +4724,14 @@ function installinstallapp()
 {
 	global $gbl, $sgbl, $login, $ghtml; 
 	
-	// Install/Update installapp if needed or remove installapp when installapp is disabled.
-	// Added in Kloxo 6.1.4
-
 	log_cleanup("Initialize InstallApp");
 
-	//--- trick for no install on kloxo install process
 	if (lxfile_exists("/var/cache/kloxo/kloxo-install-disableinstallapp.flg")) {
 		log_cleanup("- InstallApp is disabled by InstallApp Flag");
 		system("echo 1 > /usr/local/lxlabs/kloxo/etc/flag/disableinstallapp.flg");
 		return;
 	}
-/*
-	if ($sgbl->is_this_master()) {
-		$gen = $login->getObject('general')->generalmisc_b;
-		$diflag = $gen->isOn('disableinstallapp');
-		log_cleanup("- InstallApp is disabled by InstallApp Flag");
-		system("echo 1 > /usr/local/lxlabs/kloxo/etc/flag/disableinstallapp.flg");
-	} else {
-		$diflag = false;
-		log_cleanup("- InstallApp is not disabled by InstallApp Flag");
-		lxfile_rm("/usr/local/lxlabs/kloxo/etc/flag/disableinstallapp.flg");
-	}
-*/
+
 	if (lxfile_exists("/usr/local/lxlabs/kloxo/etc/flag/disableinstallapp.flg")) {
 		log_cleanup("- InstallApp is disabled, removing InstallApp");
 		lxfile_rm_rec("/home/kloxo/httpd/installapp/");
@@ -4905,26 +4751,12 @@ function installinstallapp()
 			return;
 		}
 
-		// Line below Removed in Kloxo 6.1.4
 		return;
-	/*
-		log_cleanup("- Creating installapp dir");
-		lxfile_mkdir("__path_kloxo_httpd_root/installapp");
-
-		if (!lxfile_exists("__path_kloxo_httpd_root/installapp/wordpress")) {
-			log_cleanup("- Installing/Updating InstallApp");
-			lxshell_php("../bin/installapp-update.phps");
-		}
-		return;
-	*/
 	}
 }
 
 function installWithVersion($path, $file, $ver = null)
 {
-
-//	if (!is_numeric($ver)) { return; }
-
 	if (!$ver) {
 		$ver = getVersionNumber(get_package_version($file));
 		log_cleanup("- $file version is $ver");
@@ -4933,7 +4765,6 @@ function installWithVersion($path, $file, $ver = null)
 	lxfile_mkdir("/var/cache/kloxo");
 
 	if (lxfile_exists("/var/cache/kloxo/kloxo-install-firsttime.flg")) {
-		//--- WARNING: don't use filename like kloxophp_version because problem with $file_version alias
 		$locverpath = "/var/cache/kloxo/$file-version";
 		$locver = getVersionNumber(file_get_contents($locverpath));
 		log_cleanup("- $file local copy version is $locver");		
@@ -4964,10 +4795,7 @@ function installWithVersion($path, $file, $ver = null)
 	if ($DoUpdate) {
 		lxfile_rm_rec("$path");
 		lxfile_mkdir($path);
-	//	system("cd $path ; tar -xzf /var/cache/kloxo/$file*.tar.gz");
-	//	system("cd $path ; for a in `ls -1 /var/cache/kloxo/$file*.tar.gz`; do gzip -dc $a | tar xf -; done");
 		$ret = lxshell_unzip("__system__", $path, "/var/cache/kloxo/$file$ver.tar.gz");
-	//	$ret = system("cd $path ; for a in `ls -1 /var/cache/kloxo/$file*.tar.gz` ; do gzip -dc $a | tar xf - ; done");
 		if (!$ret) { return true; }
 	}
 	else {
@@ -4975,7 +4803,6 @@ function installWithVersion($path, $file, $ver = null)
 	}
 }
 
-//--- new function for replace download_thirdparty() in kloxo/httpdocs/htmllib/lib/lib.php
 function installThirdparty($ver = null)
 {
 	global $sgbl;
@@ -4992,10 +4819,6 @@ function installThirdparty($ver = null)
 
 	$path = "/usr/local/lxlabs/$prgm";
 
-/*
-	// Fixes #303 and #304
-	// the code deleted
-*/
 	if (lxfile_exists("/var/cache/kloxo/kloxo-install-firsttime.flg")) {
 		$locverpath = "/var/cache/kloxo/$prgm-thirdparty-version";
 		$locver = getVersionNumber(file_get_contents($locverpath));
@@ -5025,8 +4848,6 @@ function installThirdparty($ver = null)
 	$ret = null;
 
 	if ($DoUpdate) {
-	//	core_installWithVersion($path, "$prgm-thirdparty", $string);
-	//	system("cd $path ; unzip -oq /var/cache/kloxo/$prgm-thirdparty.$ver.zip");
 		$ret = lxshell_unzip("__system__", $path, "/var/cache/kloxo/$prgm-thirdparty.$ver.zip");
 		lxfile_unix_chmod("/usr/local/lxlabs/$prgm/httpdocs/thirdparty/phpMyAdmin/config.inc.php","0644");
 	}
@@ -5036,7 +4857,6 @@ function installThirdparty($ver = null)
 
 function installWebmail($ver = null)
 {
-//	if (!is_numeric($ver)) { return; }
 
 	log_cleanup("Webmail Checks");
 
@@ -5102,8 +4922,6 @@ function installWebmail($ver = null)
 
 function installAwstats($ver = null)
 {
-//	if (!is_numeric($ver)) { return; }
-
 	$file = "lxawstats";
 
 	log_cleanup("Awstats Checks");
@@ -5330,6 +5148,7 @@ function setInitialApacheConfig()
 	log_cleanup("- Initialize process");
 
 	log_cleanup("- Install /etc/httpd/conf/httpd.conf");
+    // ToDo: Why not using default from httpd dist?
 	lxfile_cp("../file/centos-5/httpd.conf", "/etc/httpd/conf/httpd.conf");
 
 	if (lxfile_exists("/etc/httpd/conf/kloxo")) {
@@ -5372,6 +5191,7 @@ function setInitialApacheConfig()
 
 	if (!lxfile_real("/etc/httpd/conf.d/ssl.conf")) {
 		log_cleanup("- Install /etc/httpd/conf.d/ssl.conf");
+        // ToDo: Whats wrong with using the apache dist file?
 		lxfile_cp("../file/apache/default_ssl.conf", "/etc/httpd/conf.d/ssl.conf");
 	}
 
@@ -5489,9 +5309,9 @@ function setInitialPureftpConfig()
 
 	if (lxfile_exists("/etc/rc.d/init.d/pure-ftpd")) {
 		log_cleanup("- Turn off and remove pure-ftpd service");
-		@ exec("chkconfig pure-ftpd off 2>/dev/null");
+		@exec("chkconfig pure-ftpd off 2>/dev/null");
 		// MR --- chkconfig off not enough because can restart with 'service pure-ftpd start'
-		@lxfile_rm("/etc/rc.d/init.d/pure-ftpd");
+        @lxfile_rm("/etc/rc.d/init.d/pure-ftpd");
 	}
 	
 	if (!lxfile_exists("/etc/pure-ftpd/pureftpd.passwd")) {
@@ -5568,22 +5388,22 @@ function setRemoveOldDirs()
 	log_cleanup("- Remove process");
 
 	if (lxfile_exists("/home/admin/domain")) {
-		log_cleanup("- Remove dir /home/admin/domain/ if exists");
+		log_cleanup("- Remove dir /home/admin/domain/");
 		rmdir("/home/admin/domain/");
 	}
 
 	if (lxfile_exists("/home/admin/old")) {
-		log_cleanup("- Remove dir /home/admin/old/ if exists");
+		log_cleanup("- Remove dir /home/admin/old/");
 		rmdir("/home/admin/old/");
 	}
 
 	if (lxfile_exists("/home/admin/cgi-bin")) {
-		log_cleanup("- Remove dir /home/admin/cgi-bin/ if exists");
+		log_cleanup("- Remove dir /home/admin/cgi-bin/");
 		rmdir("/home/admin/cgi-bin/");
 	}
 
 	if (lxfile_exists("/etc/skel/Maildir")) {
-		log_cleanup("- Remove dir /etc/skel/Maildir/ if exists");
+		log_cleanup("- Remove dir /etc/skel/Maildir/");
 		rmdir("/etc/skel/Maildir/new");
 		rmdir("/etc/skel/Maildir/cur");
 		rmdir("/etc/skel/Maildir/tmp");
@@ -5650,59 +5470,45 @@ function setCheckPackages()
 
 function setInstallMailserver()
 {
-	
-	// MR -- disable checking for existing files to make guarantee to use setting from kloxo
-	
-//	if (!lxfile_exists("/etc/xinetd.d/smtp_lxa")) {
-		log_cleanup("- Install xinetd smtp_lxa SMTP TCP Wrapper");
-		lxfile_cp("../file/xinetd.smtp_lxa", "/etc/xinetd.d/smtp_lxa");
-//	}
+	log_cleanup("- Install xinetd smtp_lxa SMTP TCP Wrapper");
+	lxfile_cp("../file/xinetd.smtp_lxa", "/etc/xinetd.d/smtp_lxa");
 
-//	if (!lxfile_exists("/etc/init.d/qmail")) {
-		log_cleanup("- Install qmail service");
-		lxfile_cp("../file/qmail.init", "/etc/init.d/qmail");
-		lxfile_unix_chmod("/etc/init.d/qmail", "0755");
-//	}
+	log_cleanup("- Install qmail service");
+	lxfile_cp("../file/qmail.init", "/etc/init.d/qmail");
+	lxfile_unix_chmod("/etc/init.d/qmail", "0755");
 
-//	if (!lxfile_exists("/etc/lxrestricted")) {
-		log_cleanup("- Install /etc/lxrestricted file (lxjailshell commands restrictions)");
-		lxfile_cp("../file/lxrestricted", "/etc/lxrestricted");
-//	}
+	log_cleanup("- Install /etc/lxrestricted file (lxjailshell commands restrictions)");
+	lxfile_cp("../file/lxrestricted", "/etc/lxrestricted");
 
-//	if (!lxfile_exists("/etc/sysconfig/spamassassin")) {
-		log_cleanup("- Install /etc/sysconfig/spamassassin");
-		lxfile_cp("../file/sysconfig_spamassassin", "/etc/sysconfig/spamassassin");
-//	}
-
+	log_cleanup("- Install /etc/sysconfig/spamassassin");
+	lxfile_cp("../file/sysconfig_spamassassin", "/etc/sysconfig/spamassassin");
 	$name = trim(lfile_get_contents("/var/qmail/control/me"));
+
 	log_cleanup("- Install qmail defaultdomain and defaulthost ($name)");
 	lxfile_cp("/var/qmail/control/me", "/var/qmail/control/defaultdomain");
 	lxfile_cp("/var/qmail/control/me", "/var/qmail/control/defaulthost");
+
 	log_cleanup("- Install qmail SMTP Greeting ($name - Welcome to Qmail)");
 	lfile_put_contents("/var/qmail/control/smtpgreeting", "$name - Welcome to Qmail");
 
-//	if (!lxfile_exists("/usr/bin/rblsmtpd")) {
-		log_cleanup("- Initialize rblsmtpd binary");
-		lxshell_return("ln", "-s", "/usr/local/bin/rblsmtpd", "/usr/bin/");
-//	}
+	log_cleanup("- Initialize rblsmtpd binary");
+	lxshell_return("ln", "-s", "/usr/local/bin/rblsmtpd", "/usr/bin/");
 
-//	if (!lxfile_exists("/usr/bin/tcpserver")) {
-		log_cleanup("- Initialize tcpserver binary");
-		lxshell_return("ln", "-s", "/usr/local/bin/tcpserver", "/usr/bin/");
-//	}
+	log_cleanup("- Initialize tcpserver binary");
+	lxshell_return("ln", "-s", "/usr/local/bin/tcpserver", "/usr/bin/");
 }
 
 function setInitialServer()
 {
 	// Issue #450
-	log_cleanup("Initialize Server");
+	log_cleanup("Initialize Server type");
 
 	if (lxfile_exists("/proc/user_beancounters")) {
-		log_cleanup("- Initialize OpenVZ");
+		log_cleanup("- Detected OpenVZ");
 		create_dev();
 		lxfile_cp("../file/openvz/inittab", "/etc/inittab");
 	} else {
-		log_cleanup("- Initialize non-OpenVZ");
+		log_cleanup("- Detected non-OpenVZ");
 		if (!lxfile_exists("/sbin/udevd")) {
 			lxfile_mv("/sbin/udevd.back", "/sbin/udevd");
 		}
@@ -5731,9 +5537,11 @@ function setSomePermissions()
 	log_cleanup("- Set permissions for /home/kloxo/httpd/lighttpd/ dir");
 	system("chown -R apache:apache /home/kloxo/httpd/lighttpd/");
 	log_cleanup("- Set permissions for /var/lib/php/session/ dir");
+//ToDo: Find proper permission, 777 is not GOOD
 	system("chmod 777 /var/lib/php/session/");
 	system("chmod o+t /var/lib/php/session/");
 	log_cleanup("- Set permissions for /var/bogofilter/ dir");
+// ToDo: Find proper permission, 777 is not GOOD
 	system("chmod 777 /var/bogofilter/");
 	system("chmod o+t /var/bogofilter/");
 	log_cleanup("- Kill sisinfoc system process");
@@ -5742,7 +5550,7 @@ function setSomePermissions()
 
 function setInitialBind()
 {
-	log_cleanup("Initialize Kloxo bind config files");
+	log_cleanup("Initialize Bind config files");
 
 	if (!lxfile_exists("/var/named/chroot/etc/kloxo.named.conf")) {
 		log_cleanup("- Initialize process");
@@ -5806,7 +5614,7 @@ function setInitialNobodyScript()
 
 function setSomeScript()
 {
-	log_cleanup("Execute/remove/initialize/install script");
+	log_cleanup("Fix the following scripts;");
 
 	log_cleanup("- Execute lxpopuser.sh");
 	system("sh ../bin/misc/lxpopuser.sh");
@@ -5822,11 +5630,10 @@ function setSomeScript()
 
 function setInitialLogrotate()
 {
-//	return; // Kloxo 6.2.0 (#295)
 	log_cleanup("Initialize logrotate");
 
 	if (lxfile_exists("/etc/logrotate.d/kloxo")) {
-		log_cleanup("- Initialize process");
+		log_cleanup("- Installing logrotate file");
 
 		if (lxfile_exists("../file/kloxo.logrotate")) {
 			lxfile_cp("../file/kloxo.logrotate", "/etc/logrotate.d/kloxo");
@@ -5864,6 +5671,7 @@ function install_bogofilter()
 	lxfile_mkdir($dir);
 
 	lxfile_rm($wordlist);
+    // ToDo: move this just inside Kloxo and not at external website
 	$content = file_get_contents("http://download.lxcenter.org/download/wordlist.db");
 	file_put_contents($wordlist, $content);
 	lxfile_unix_chown_rec($dir, "lxpopuser:lxpopgroup");
@@ -5902,23 +5710,10 @@ function setInitialAdminAccount()
 	}
 }
 
-function updateApplicableToSlaveToo()
-{
-	os_updateApplicableToSlaveToo();
-}
-
-function fix_secure_log()
-{
-	log_cleanup("Fix secure log");
-	log_cleanup("- Fix process");
-
-	lxfile_mv("/var/log/secure", "/var/log/secure.lxback");
-	lxfile_cp("../file/linux/syslog.conf", "/etc/syslog.conf");
-	createRestartFile('syslog');
-}
-
 function fix_cname()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	log_cleanup("Initialize OS admin account description");
 	log_cleanup("- Initialize process");
 
@@ -5999,6 +5794,8 @@ function fix_suexec()
 
 function enable_xinetd()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	log_cleanup("Enable xinetd");
 	log_cleanup("- enable process");
 
@@ -6009,6 +5806,8 @@ function enable_xinetd()
 
 function fix_mailaccount_only()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 
 	log_cleanup("Fix mailaccount only");
@@ -6025,6 +5824,8 @@ function fix_mailaccount_only()
 
 function change_spam_to_bogofilter_next_next()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	system("rpm -e --nodeps spamassassin");
 	system("yum -y install bogofilter");
@@ -6047,6 +5848,8 @@ function change_spam_to_bogofilter_next_next()
 
 function fix_mysql_name_problem()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$sq = new Sqlite(null, 'mysqldb');
 	$res = $sq->getTable();
 
@@ -6060,6 +5863,8 @@ function fix_mysql_name_problem()
 
 function fix_mysql_username_problem()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$sq = new Sqlite(null, 'mysqldbuser');
 	$res = $sq->getTable();
 
@@ -6097,6 +5902,8 @@ function add_domain_backup_dir()
 
 function changeColumn($tbl_name, $changelist)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	dprint("Changing Column.............\n");
 	$db = new Sqlite($tbl_name);
 	$columnold  = $db->getColumnTypes();
@@ -6141,7 +5948,9 @@ function changeValues($res, $tbl_name, $db, $newfields)
 }
 
 function droptable($tbl_name) 
-{ 
+{
+    // ToDo: No function usage found.. Can be deleted?
+
 	dprint("Dropping table...............\n");
 	$db = new Sqlite($tbl_name);
 	$db->rawQuery("drop table " . $tbl_name );
@@ -6149,6 +5958,8 @@ function droptable($tbl_name)
 
 function dropcolumn($tbl_name, $column) 
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	dprint("Dropping Column...............\n");
 
 	$db = new Sqlite($tbl_name);
@@ -6171,7 +5982,9 @@ function dropcolumn($tbl_name, $column)
 	changeValues($res, $tbl_name, $db, $newfields);
 }
 
-function getTabledetails($tbl_name){
+function getTabledetails($tbl_name)
+{
+    // ToDo: No function usage found.. Can be deleted?
 
 	dprint("table. values are ..........\n");
 	$db = new Sqlite($tbl_name);
@@ -6181,6 +5994,8 @@ function getTabledetails($tbl_name){
 
 function construct_uuser_nname($list)
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	global $gbl, $sgbl, $login, $ghtml; 
 	return $list['nname'] . $sgbl->__var_nname_impstr . $list['servername'];
 }
@@ -6196,6 +6011,8 @@ function getVersionNumber($ver)
 // ref: http://ideone.com/JWKIf
 function is_64bit()
 {
+    // ToDo: No function usage found.. Can be deleted?
+
 	$int = "9223372036854775807";
 	$int = intval($int);
 
@@ -6272,29 +6089,34 @@ function setUpdateServices($list)
 function setUpdateConfigWithVersionCheck($list, $servertype = null)
 {
 
-//	$fixpath = "sh /usr/local/lxlabs/kloxo/pscript";
-	$fixpath = "sh /script";
+	$fixpath = "/bin/sh /script/";
 
 	$el = implode("/", $list);
 
 	log_cleanup("Fix {$el} configs");	
 
-	$fixstr = "";
 
 	foreach($list as $key => $fa) {
 		$fixstr = "{$fixpath}/fix{$fa} --server=all";
 
 		if ($servertype !== 'slave') {
 			log_cleanup("- Fix {$fa} configs");
-			// use system instead exec becuase want appear on screen	
-			system($fixstr); 
+			// use system instead exec becuase want appear on screen
+            system($fixstr);
 		}
 	}
 }
 
 function updatecleanup()
 {
-	setPrepareKloxo();
+    //
+    // This runs when using upcp/cleanup script.
+    //
+
+    // Move as much as possible all log_cleanup lines within the function.
+
+    // Starting...
+    setPrepareKloxo();
 
     // Fixes #303 and #304
 	installThirdparty();
@@ -6418,8 +6240,6 @@ function updatecleanup()
 
 	installChooser();
 
-	log_cleanup("Remove old lxlabs ssh key");
-	log_cleanup("- Remove process");
  	remove_ssh_self_host_key();
 	
 	setInitialServer();
@@ -6427,7 +6247,9 @@ function updatecleanup()
 	setDefaultPages();
 	
 	installInstallApp();
+
 	setFreshClam();
+
 	changeMailSoftlimit();
 
 	// DT #574 - Remove FCKEditor if CKEditor is present
@@ -6450,7 +6272,7 @@ function setPrepareKloxo()
 	log_cleanup("- OS Create Kloxo init.d service file and copy core php.ini (lxphp)");
 	os_create_program_service();
 
-	log_cleanup("- OS Fix programroot path permissions");
+	log_cleanup("- OS Fix program root path permissions");
 	os_fix_lxlabs_permission();
 
 	log_cleanup("- OS Restart Kloxo service");

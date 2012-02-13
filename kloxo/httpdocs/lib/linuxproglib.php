@@ -92,13 +92,18 @@ function remove_test_root()
 
 function remove_ssh_self_host_key()
 {
-	# TODO: Can be removed somewhere in 6.2.x branche
+
+	# TODO: Can be removed somewhere in 6.2.x branche (lxlabs ssh key}
 	if (lxfile_exists("/root/.ssh/authorized_keys")) {
+        log_cleanup("Remove old lxlabs ssh key");
+
  		remove_line("/root/.ssh/authorized_keys", "root@self.lxlabs.com");
 	}
-        if (lxfile_exists("/root/.ssh/authorized_keys2")) {
-		remove_line("/root/.ssh/authorized_keys2", "root@self.lxlabs.com");
-	}
+
+     if (lxfile_exists("/root/.ssh/authorized_keys2")) {
+        log_cleanup("Remove old lxlabs ssh key");
+ 	    remove_line("/root/.ssh/authorized_keys2", "root@self.lxlabs.com");
+	 }
 }
 
 function remove_host_deny()

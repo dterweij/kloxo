@@ -12,7 +12,7 @@ function moveToClient()
 	$l = $login->getList('ftpuser');
 	foreach($l as $b) {
 		if (csb($b->parent_clname, 'web-')) {
-			list($parentclass, $parentname) = getParentNameAndClass($b->parent_clname);
+			list($parentclass, $parentname) = dogetParentNameAndClass($b->parent_clname);
 			$d = new Domain(null, null, $parentname);
 			$d->get();
 			$b->parent_clname = $d->parent_clname;
@@ -28,7 +28,7 @@ function moveToClient()
 	$l = $login->getList('mysqldb');
 	foreach($l as $b) {
 		if (csb($b->parent_clname, 'domain-')) {
-			list($parentclass, $parentname) = getParentNameAndClass($b->parent_clname);
+			list($parentclass, $parentname) = dogetParentNameAndClass($b->parent_clname);
 			$d = new Domain(null, null, $parentname);
 			$d->get();
 			$b->parent_clname = $d->parent_clname;

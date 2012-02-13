@@ -195,8 +195,8 @@ function fixDataBaseIssues()
 	$sq->rawQuery("drop table license");
 
 	// ToDo: Remove this for #397
-	log_cleanup("- Set default welcome text at Kloxo login page");
-	initDbLoginPre();
+//	log_cleanup("- Set default welcome text at Kloxo login page");
+//	initDbLoginPre();
 
 	log_cleanup("- Remove default db password if exists");
 	critical_change_db_pass();

@@ -44,7 +44,7 @@ static function ticketSendNotification($from, $id, $category, $object, $action, 
 
 	log_message("Sending Notification $subject to $object->nname $object->contactemail \n");
 	$subject = "[ticket:$object->nname:$id] $subject";
-	list($parentclass, $parentname) = getParentNameAndClass($made_by);
+	list($parentclass, $parentname) = dogetParentNameAndClass($made_by);
 	$mail = null;
 	if ($o->isOn('mail_enable')) {
 		$mail  .= "When replying please leave the subject intact for the helpdesk to parse...\n-----\n";

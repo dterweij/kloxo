@@ -50,7 +50,7 @@ function convert_tree_to_frm_o()
 		$ghtml->__resource_class = false;
 
 		if (csa($d, "-")) {
-			list($class, $name) = getClassAndName($d);
+			list($class, $name) = dogetParentNameAndClass($d);
 			$frmo[$i]['class'] = $class;
 			$frmo[$i]['nname'] = $name;
 		} else {

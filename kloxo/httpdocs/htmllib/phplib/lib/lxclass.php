@@ -1619,7 +1619,7 @@ function getParentClass($var = 'parent_clname')
 	if (isset($this->$tvar)) {
 		return $this->$tvar;
 	}
-	list($pclass, $pname) = getParentNameAndClass($this->$var);
+	list($pclass, $pname) = dogetParentNameAndClass($this->$var);
 	$this->$tvar = $pclass;
 	return $pclass;
 
@@ -1628,7 +1628,7 @@ function getParentClass($var = 'parent_clname')
 function getParentName($var = 'parent_clname')
 {
 	$tvar = "__ptn_{$var}";
-	list($pclass, $pname) = getParentNameAndClass($this->$var);
+	list($pclass, $pname) = dogetParentNameAndClass($this->$var);
 	$this->$tvar = $pname;
 	return $pname;
 }
@@ -2046,7 +2046,7 @@ function getTrueParentO()
 		return null;
 	}
 
-	list ($pclass, $pname) = getParentNameAndClass($this->parent_clname);
+	list ($pclass, $pname) = dogetParentNameAndClass($this->parent_clname);
 
 	$parent = new $pclass($this->__masterserver, $this->__readserver, $pname);
 	$parent->get();
@@ -2081,7 +2081,7 @@ function getParentO()
 		return null;
 	}
 
-	list ($pclass, $pname) = getParentNameAndClass($this->parent_clname);
+	list ($pclass, $pname) = dogetParentNameAndClass($this->parent_clname);
 
 	$parent = new $pclass($this->__masterserver, $this->__readserver, $pname);
 	$parent->get();
@@ -2576,7 +2576,7 @@ function consistencyAlreadyExisting($res, $trulist, $real)
 
 	$pclname = $res[0]['parent_clname'];
 	if ($pclname != $this->parent_clname) {
-		list($parentclass, $parentname) = getClassAndName($pclname);
+		list($parentclass, $parentname) = dogetParentNameAndClass($pclname);
 		if ($real) { $this->dbaction = 'already_present_under_different_owner'; }
 		if ($login->isAdmin()) {
 			$parentstring = "{$parentclass}:{$parentname}";
@@ -4324,7 +4324,7 @@ function convertClCmToNameCm($cmlist)
 	foreach($v as $__q) {
 		if ($__q) {
 
-			list($pclass, $pname) = getParentNameAndClass($__q);
+			list($pclass, $pname) = dogetParentNameAndClass($__q);
 			$nv[] = $pname;
 		}
 	}

@@ -2,10 +2,6 @@
 include_once "htmllib/lib/include.php";
 include_once "htmllib/lib/updatelib.php";
 
-exit_if_another_instance_running();
-debug_for_backend();
-updatecleanup_main();
-
 function updatecleanup_main()
 {
 	global $argc, $argv;
@@ -18,7 +14,8 @@ function updatecleanup_main()
 		initProgram('admin');
 		$flg = "__path_program_start_vps_flag";
 		if (!lxfile_exists($flg)) {
-			set_login_skin_to_feather();
+    // Don't force it.
+    // set_login_skin_to_feather();
 		}
 	} else {
 		$login = new Client(null, null, 'update');
@@ -29,6 +26,7 @@ function updatecleanup_main()
 // Check for lxlabs yum repo file and if exists
 // Change to lxcenter repo file
 //
+    //ToDO: Change to lxcenter-release..noarch.rpm
 	if (lxfile_exists("/etc/yum.repos.d/lxlabs.repo")) {
 		log_cleanup("- Deleting old lxlabs yum repo");
 		lxfile_mv("/etc/yum.repos.d/lxlabs.repo","/etc/yum.repos.d/lxlabs.repo.lxsave");
@@ -127,8 +125,9 @@ function updatecleanup_main()
 	exec("chkconfig qmail on");
 	createRestartFile("qmail");
 
-	$fixapps = array("dns", "web", "php", "mail", "ftpuser", "vpop");
-	setUpdateConfigWithVersionCheck($fixapps, $opt['type']);
+// ToDO: This is a slow process to do here must be faster or other way (run only when needed)
+//	$fixapps = array("dns", "web", "php", "mail", "ftpuser", "vpop");
+//	setUpdateConfigWithVersionCheck($fixapps, $opt['type']);
 
 	// --- for anticipate change xinetd listing
 	exec("service xinetd restart");
@@ -143,4 +142,10 @@ function cp_dbfile()
 	lxfile_cp("../sbin/{$progname}db", "/usr/bin/{$progname}db");
 	lxfile_generic_chmod("/usr/bin/{$progname}db", "0755");
 }
+
+
+// Start them
+exit_if_another_instance_running();
+debug_for_backend();
+updatecleanup_main();
 

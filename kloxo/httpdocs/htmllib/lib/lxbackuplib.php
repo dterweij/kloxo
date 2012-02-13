@@ -356,7 +356,7 @@ function createShowUpdateform()
 }
 function getId()
 {
-	list($class, $name) = getClassAndName($this->nname);
+	list($class, $name) = dogetParentNameAndClass($this->nname);
 	return $name;
 }
 
