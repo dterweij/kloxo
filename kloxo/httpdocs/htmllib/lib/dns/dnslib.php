@@ -1,15 +1,16 @@
 <?php
 
-class Dns extends DnsBase {
+class Dns extends DnsBase
+{
 
 // Core
-    static $__desc = array("", "",  "DNS");
-    static $__desc_nname = array("", "",  "domain_name", "a=show");
-    static $__desc_webipaddress = array("", "",  "web_ipaddress");
-    static $__desc_mmailipaddress = array("", "",  "mail_ipaddress");
-    static $__acdesc_show = array("", "",  "manage_dns");
-    static $__acdesc_list = array("", "",  "dns");
-    static $__table =  'dns';
+    static $__desc = array("", "", "DNS");
+    static $__desc_nname = array("", "", "domain_name", "a=show");
+    static $__desc_webipaddress = array("", "", "web_ipaddress");
+    static $__desc_mmailipaddress = array("", "", "mail_ipaddress");
+    static $__acdesc_show = array("", "", "manage_dns");
+    static $__acdesc_list = array("", "", "dns");
+    static $__table = 'dns';
 
 
     function createExtraVariablesHyperVM()
@@ -23,7 +24,7 @@ class Dns extends DnsBase {
         $dbaddon = new Sqlite(null, "dns");
         $addr = $dbaddon->getTable(array('nname'));
         $serverlist = explode(",", $this->syncserver);
-        foreach($serverlist as $server) {
+        foreach ($serverlist as $server) {
             $dlistv = "__var_domainlist_$server";
             $this->$dlistv = $addr;
         }
@@ -49,7 +50,7 @@ class Dns extends DnsBase {
 
         $serverlist = explode(",", $this->syncserver);
         $list = null;
-        foreach($serverlist as $server) {
+        foreach ($serverlist as $server) {
             $string = "syncserver LIKE '%$server%'";
             $nlist = $db->getRowsWhere($string, array('nname'));
             $dlistv = "__var_domainlist_$server";
@@ -57,13 +58,11 @@ class Dns extends DnsBase {
         }
 
 
-
-
         //FIXME: We should only get the addon domains for the domains configured on that particular server. IN the case of single server system, it is not a problem, since that means we will have to get all the domains. but in the case of distributed setup, we need to properly get only the add domains under the domains loaded above.
         $dbaddon = new Sqlite(null, "addondomain");
         $addr = $dbaddon->getTable(array('nname'));
 
-        foreach($serverlist as $server) {
+        foreach ($serverlist as $server) {
             $dlistv = "__var_domainlist_$server";
             $this->$dlistv = lx_array_merge(array($this->$dlistv, $addr));
         }
@@ -92,7 +91,9 @@ class Dns extends DnsBase {
 
         $v = $this->serial;
 
-        if ($v < 10) { $v = "0$v"; }
+        if ($v < 10) {
+            $v = "0$v";
+        }
 
         $ddate = "$ddate{$v}";
 
@@ -113,9 +114,11 @@ class Dns extends DnsBase {
         if ($new === 'bind') {
             lxshell_return("service", "djbdns", "stop");
             $ret = lxshell_return("yum", "-y", "install", "bind", "bind-chroot");
-            if ($ret) { throw new lxexception('install_bind_failed', 'parent'); }
+            if ($ret) {
+                throw new lxexception('install_bind_failed', 'parent');
+            }
             lxshell_return("chkconfig", "named", "on");
-            $pattern='include "/etc/kloxo.named.conf";';
+            $pattern = 'include "/etc/kloxo.named.conf";';
             $file = "/var/named/chroot/etc/named.conf";
             $comment = "//Kloxo";
             addLineIfNotExistInside($file, $pattern, $comment);
@@ -125,8 +128,10 @@ class Dns extends DnsBase {
             lunlink("/etc/init.d/djbdns");
         } else {
             lxshell_return("yum", "-y", "install", "djbdns", "daemontools");
-            if ($ret) { throw new lxexception('install_djbdns_failed', 'parent'); }
-            lxshell_return("service",  "named", "stop");
+            if ($ret) {
+                throw new lxexception('install_djbdns_failed', 'parent');
+            }
+            lxshell_return("service", "named", "stop");
             lxfile_rm_rec("/var/tinydns");
             lxfile_rm_rec("/var/axfrdns");
             lxshell_return("__path_php_path", "../bin/misc/djbdnsstart.php");
@@ -150,55 +155,55 @@ class Dns extends DnsBase {
 
         if ($driverapp === 'bind') {
             lxshell_return("service", "djbdns", "stop");
-		lxshell_return("chkconfig", "named", "on");
-        $pattern = 'include "/etc/global.options.named.conf";';
-        $file = "/var/named/chroot/etc/named.conf";
-        $comment = "//Global_options_file";
-        addLineIfNotExist($file, $pattern, $comment);
-        $options_file = "/var/named/chroot/etc/global.options.named.conf";
+            lxshell_return("chkconfig", "named", "on");
+            $pattern = 'include "/etc/global.options.named.conf";';
+            $file = "/var/named/chroot/etc/named.conf";
+            $comment = "//Global_options_file";
+            addLineIfNotExist($file, $pattern, $comment);
+            $options_file = "/var/named/chroot/etc/global.options.named.conf";
 
-        $example_options = "acl \"lxcenter\" {\n";
-        $example_options .= " localhost;\n";
-        $example_options .= "};\n\n";
-        $example_options .= "options {\n";
-        $example_options .= " max-transfer-time-in 60;\n";
-        $example_options .= " transfer-format many-answers;\n";
-        $example_options .= " transfers-in 60;\n";
-        $example_options .= " auth-nxdomain yes;\n";
-        $example_options .= " allow-transfer { \"lxcenter\"; };\n";
-        $example_options .= " allow-recursion { \"lxcenter\"; };\n";
-        $example_options .= " recursion no;\n";
-        $example_options .= " version \"LxCenter - 1.0\";\n";
-        $example_options .= "};\n\n";
-        $example_options .= "# Remove # to see all DNS queries\n";
-        $example_options .= "#logging {\n";
-        $example_options .= "# channel query_logging {\n";
-        $example_options .= "# file \" /var/log / named_query . log\";\n";
-        $example_options .= "# versions 3 size 100M;\n";
-        $example_options .= "# print-time yes;\n";
-        $example_options .= "# };\n\n";
-        $example_options .= "# category queries {\n";
-        $example_options .= "# query_logging;\n";
-        $example_options .= "# };\n";
-        $example_options .= "#};\n";
-    if (!lfile_exists($options_file)) {
-        touch($options_file);
-        chown($options_file, "named");
-    }
-    $cont = lfile_get_contents($options_file);
-    $pattern = "options";
-    if (!preg_match("+$pattern+i", $cont)) {
-        file_put_contents($options_file, "$example_options\n");
-    }
+            $example_options = "acl \"lxcenter\" {\n";
+            $example_options .= " localhost;\n";
+            $example_options .= "};\n\n";
+            $example_options .= "options {\n";
+            $example_options .= " max-transfer-time-in 60;\n";
+            $example_options .= " transfer-format many-answers;\n";
+            $example_options .= " transfers-in 60;\n";
+            $example_options .= " auth-nxdomain yes;\n";
+            $example_options .= " allow-transfer { \"lxcenter\"; };\n";
+            $example_options .= " allow-recursion { \"lxcenter\"; };\n";
+            $example_options .= " recursion no;\n";
+            $example_options .= " version \"LxCenter - 1.0\";\n";
+            $example_options .= "};\n\n";
+            $example_options .= "# Remove # to see all DNS queries\n";
+            $example_options .= "#logging {\n";
+            $example_options .= "# channel query_logging {\n";
+            $example_options .= "# file \" /var/log / named_query . log\";\n";
+            $example_options .= "# versions 3 size 100M;\n";
+            $example_options .= "# print-time yes;\n";
+            $example_options .= "# };\n\n";
+            $example_options .= "# category queries {\n";
+            $example_options .= "# query_logging;\n";
+            $example_options .= "# };\n";
+            $example_options .= "#};\n";
+            if (!lfile_exists($options_file)) {
+                touch($options_file);
+                chown($options_file, "named");
+            }
+            $cont = lfile_get_contents($options_file);
+            $pattern = "options";
+            if (!preg_match("+$pattern+i", $cont)) {
+                file_put_contents($options_file, "$example_options\n");
+            }
 
-		$pattern = 'include "/etc/kloxo.named.conf";';
-		$file = "/var/named/chroot/etc/named.conf";
-		$comment = "//Kloxo";
-		addLineIfNotExistInside($file, $pattern, $comment);
-		touch("/var/named/chroot/etc/kloxo.named.conf");
-		chown("/var/named/chroot/etc/kloxo.named.conf", "named");
-		lxshell_return("rpm", "-e", "djbdns");
-		lunlink("/etc/init.d/djbdns");
+            $pattern = 'include "/etc/kloxo.named.conf";';
+            $file = "/var/named/chroot/etc/named.conf";
+            $comment = "//Kloxo";
+            addLineIfNotExistInside($file, $pattern, $comment);
+            touch("/var/named/chroot/etc/kloxo.named.conf");
+            chown("/var/named/chroot/etc/kloxo.named.conf", "named");
+            lxshell_return("rpm", "-e", "djbdns");
+            lunlink("/etc/init.d/djbdns");
         } else {
             lxshell_return("service", "named", "stop");
             lxshell_return("rpm", "-e", "--nodeps", "bind");
@@ -207,7 +212,11 @@ class Dns extends DnsBase {
         }
     }
 
-    function inheritSynserverFromParent() { return false; }
+    function inheritSynserverFromParent()
+    {
+        return false;
+    }
+
     function oldsyncToSystem()
     {
         global $gbl, $sgbl, $login, $ghtml;
@@ -229,7 +238,7 @@ class Dns extends DnsBase {
 
 
         $param['nameserver_f'] = $revc->primarydns;
-        $param['secnameserver_f'] =  $revc->secondarydns;
+        $param['secnameserver_f'] = $revc->secondarydns;
         return $param;
     }
 
@@ -249,6 +258,14 @@ class Dns extends DnsBase {
         $vlist['mmailipaddress'] = array('s', $res);
         $vlist['nameserver_f'] = array('M', $revc->primarydns);
         $vlist['secnameserver_f'] = array('M', $revc->secondarydns);
+
+        // 2010-06-08 LN: New values for SOA
+        $vlist['email'] = null;
+        $vlist['refresh'] = null;
+        $vlist['retry'] = null;
+        $vlist['expire'] = null;
+        $vlist['minimum'] = null;
+
         $ret['action'] = 'add';
         $ret['variable'] = $vlist;
         return $ret;
@@ -257,14 +274,18 @@ class Dns extends DnsBase {
 
 }
 
-class all_dns extends dns {
+class all_dns extends dns
+{
 
-    static $__desc =  array("n", "",  "all_dns");
-    static $__acdesc_list = array("", "",  "all_dns");
-    static $__desc_parent_name_f =  array("n", "",  "owner");
-    static $__desc_parent_clname =  array("n", "",  "owner");
+    static $__desc = array("n", "", "all_dns");
+    static $__acdesc_list = array("", "", "all_dns");
+    static $__desc_parent_name_f = array("n", "", "owner");
+    static $__desc_parent_clname = array("n", "", "owner");
 
-    function isSelect() { return false ; }
+    function isSelect()
+    {
+        return false;
+    }
 
     static function initThisListRule($parent, $class)
     {
