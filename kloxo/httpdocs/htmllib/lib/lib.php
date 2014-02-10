@@ -652,7 +652,7 @@ function PrepareRoundCubeDb()
 
 	$result = mysql_query("CREATE DATABASE IF NOT EXISTS roundcubemail", $link);
 	if (!$result) {
-		log_cleanup("- ***** There is something REALLY wrong... Go to http://forum.lxcenter.org and report to the team *****");
+		log_cleanup("- ***** There is something REALLY wrong... Go to http://community.lxcenter.org and report to the team *****");
 		exit;
 	}
 
@@ -730,7 +730,7 @@ function PrepareHordeDb()
 
 	$result = mysql_query("CREATE DATABASE IF NOT EXISTS horde_groupware", $link);
 	if (!$result) {
-		log_cleanup("- ***** There is something REALLY wrong... Go to http://forum.lxcenter.org and report to the team *****");
+		log_cleanup("- ***** There is something REALLY wrong... Go to http://community.lxcenter.org and report to the team *****");
 		exit;
 	}
 
@@ -5778,6 +5778,11 @@ function setSomePermissions()
 function setInitialBind()
 {
 	log_cleanup("Initialize Kloxo bind config files");
+    $pattern = 'include "/etc/global.options.named.conf";';
+
+    $file = "/var/named/chroot/etc/named.conf";
+    $comment = "//Kloxo global config (stop being open recursors)";
+    addLineIfNotExist($file, $pattern, $comment);
 
 	if (!lxfile_exists("/var/named/chroot/etc/kloxo.named.conf")) {
 		log_cleanup("- Initialize process");
@@ -5787,6 +5792,21 @@ function setInitialBind()
 	else {
 		log_cleanup("- No need to initialize");
 	}
+}
+
+// Copied from the installer for setInitialBind function.
+function addLineIfNotExist($filename, $pattern, $comment) {
+    $cont = lfile_get_contents($filename);
+
+    if (!preg_match("+$pattern+i", $cont)) {
+        file_put_contents($filename, "\n$comment \n\n", FILE_APPEND);
+        file_put_contents($filename, $pattern, FILE_APPEND);
+        file_put_contents($filename, "\n\n\n", FILE_APPEND);
+    } else {
+        print("Pattern '$pattern' Already present in $filename\n");
+    }
+
+
 }
 
 function setExecuteCentos5Script()
