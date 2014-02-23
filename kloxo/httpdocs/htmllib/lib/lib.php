@@ -2639,14 +2639,11 @@ function getFullVersionList($till = null)
 
 function getVersionList($till = null)
 {
-    // TODO: Is this the reason why Kloxo versions list not showing versions with number two in it?
     // Project issue #1091
-    //
+    // Removed code that skipped every version with a number 2 in it.
+    // DT22022014
 	$list = getFullVersionList($till);
 	foreach($list as $k => $l) {
-		if (preg_match("/2$/", $l) && ($k !== count($list) -1 )) {
-			continue;
-		}
 		$nnlist[] = $l;
 	}
 	$nlist = $nnlist;
@@ -3999,8 +3996,12 @@ function addLineIfNotExistInside($filename, $pattern, $comment)
 
 function fix_all_mysql_root_password()
 {
+    global $gbl, $sgbl, $login, $ghtml;
+
+    // Function is Called from scavenge.php
 	$rs = get_all_pserver();
 	foreach($rs as $r) {
+        log_scavenge("- ".$r);
 		fix_mysql_root_password($r);
 	}
 }
@@ -5864,16 +5865,14 @@ function setSomeScript()
 
 function setInitialLogrotate()
 {
-	return; // Kloxo 6.2.0 (#295)
-	log_cleanup("Initialize logrotate");
-
-	if (lxfile_exists("/etc/logrotate.d/kloxo")) {
-		log_cleanup("- Initialize process");
-
-		if (lxfile_exists("../file/kloxo.logrotate")) {
-			lxfile_cp("../file/kloxo.logrotate", "/etc/logrotate.d/kloxo");
-		}
-	}
+    // Project #295
+    // Added kloxo 6.1.18
+    if (!lxfile_exists("/etc/logrotate.d/kloxo")) {
+        if (lxfile_exists("../file/kloxo.logrotate")) {
+            log_cleanup("Installing kloxo logrotate file");
+            lxfile_cp("../file/kloxo.logrotate", "/etc/logrotate.d/kloxo");
+        }
+    }
 }
 
 function restart_xinetd_for_pureftp()
