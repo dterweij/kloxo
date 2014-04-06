@@ -4605,8 +4605,11 @@ function switchtoaliasnext()
 function fix_awstats()
 {
 	log_cleanup("Fix awstats");
-	log_cleanup("- Fix process");
 
+	log_cleanup("- Fix permissions awstats webroot");
+	system("chmod -R 755 /home/kloxo/httpd/awstats/");
+
+	log_cleanup("- Fix process");
 	lxshell_return("__path_php_path", "../bin/fix/fixweb.php");
 }
 
