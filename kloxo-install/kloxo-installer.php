@@ -548,7 +548,7 @@ function resetDBPassword($user, $pass)
 	// Sleep a bit because a nice stop
 	shell_exec("sleep 10");
 	print("Start MariaDB with skip grant tables\n");
-	shell_exec("mysql -u root -c \"/usr/libexec/mysqld --skip-grant-tables\" >/dev/null 2>&1 &");
+	shell_exec("mysqld_safe --skip-grant-tables >/dev/null 2>&1 &");
 	print("Using MariaDB to flush privileges and reset password\n");
 	sleep(10);
 	system("echo \"UPDATE user SET PASSWORD=PASSWORD('{$pass}') WHERE user='{$user}'\" | mysql -u [$user} mysql ", $return);
