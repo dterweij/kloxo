@@ -203,6 +203,8 @@ function lxins_main()
 	unlink("kloxo-current.zip");
 	system("chown -R lxlabs:lxlabs /usr/local/lxlabs/");
 	chdir("/usr/local/lxlabs/kloxo/httpdocs/");
+
+	// run mariadb at system boot
 	system("systemctl enable mariadb.service");
 
 	if ($installtype !== 'slave') {
@@ -254,9 +256,9 @@ function lxins_main()
 	//--- Prevent mysql socket problem (especially on 64bit system)
 	if (!file_exists("/var/lib/mysql/mysql.sock")) {
 		print("Create mysql.sock...\n");
-		system("systemctl disable mariadb.service");
+		system("systemctl stop mariadb.service");
 		system("mksock /var/lib/mysql/mysql.sock");	
-		system("systemctl enable mariadb.service");
+		system("systemctl start mariadb.service");
 	}
 	
 	//--- Prevent for Mysql not start after reboot for fresh kloxo slave install
@@ -320,7 +322,7 @@ function installcomp_mail() {
 
 function install_main() {
 
-	$installcomp['mail'] = array("vpopmail", "courier-imap-toaster", "courier-authlib-toaster", "qmail", "safecat", "spamassassin", "ezmlm-toaster", "autorespond-toaster");
+	$installcomp['mail'] = array("vpopmail", "dovecot", "qmail", "safecat", "spamassassin", "ezmlm", "autorespond");
 	$installcomp['web'] = array("httpd", "pure-ftpd");
 	$installcomp['dns'] = array("bind", "bind-chroot");
 	$installcomp['database'] = array("mariadb");
@@ -542,7 +544,7 @@ function get_yes_no($question, $default = 'n') {
 function resetDBPassword($user, $pass)
 {
 	print("Stopping MySQL\n");
-	shell_exec("systemctl disable mariadb.service");
+	shell_exec("systemctl stop mariadb.service");
 	print("Start MySQL with skip grant tables\n");
 	shell_exec("su mysql -c \"/usr/libexec/mysqld --skip-grant-tables\" >/dev/null 2>&1 &");
 	print("Using MySQL to flush privileges and reset password\n");
@@ -556,7 +558,7 @@ function resetDBPassword($user, $pass)
 	}
 
 	print("Password reset succesfully. Now killing MySQL softly\n");
-	shell_exec("killall mysqld");
+	shell_exec("killall mariadb");
 	print("Sleeping 10 seconds\n");
 	shell_exec("sleep 10");
 	print("Restarting the actual MySQL service\n");
