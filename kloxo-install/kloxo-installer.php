@@ -543,25 +543,28 @@ function get_yes_no($question, $default = 'n') {
 // --- taken from reset-mysql-root-password.phps
 function resetDBPassword($user, $pass)
 {
-	print("Stopping MySQL\n");
+	print("Stopping MariaDB\n");
 	shell_exec("systemctl stop mariadb.service");
-	print("Start MySQL with skip grant tables\n");
-	shell_exec("su mysql -c \"/usr/libexec/mysqld --skip-grant-tables\" >/dev/null 2>&1 &");
-	print("Using MySQL to flush privileges and reset password\n");
+	// Sleep a bit because a nice stop
+	shell_exec("sleep 10");
+	print("Start MariaDB with skip grant tables\n");
+	shell_exec("mysql -u root -c \"/usr/libexec/mysqld --skip-grant-tables\" >/dev/null 2>&1 &");
+	print("Using MariaDB to flush privileges and reset password\n");
 	sleep(10);
-	system("echo \"update user set password = Password('{$pass}') where User = '{$user}'\" | mysql -u [$user} mysql ", $return);
+	system("echo \"UPDATE user SET PASSWORD=PASSWORD('{$pass}') WHERE user='{$user}'\" | mysql -u [$user} mysql ", $return);
 
+	// ToDo: Add a counter here because it will loop forever!
 	while($return) {
-		print("MySQL could not connect, will sleep and try again\n");
+		print("MariaDB could not connect, will sleep and try again\n");
 		sleep(10);
-		system("echo \"update user set password = Password('{$pass}') where User = '{$user}'\" | mysql -u {$user} mysql", $return);
+		system("echo \"UPDATE user set PASSWORD=PASSWORD('{$pass}') WHERE user='{$user}'\" | mysql -u {$user} mysql", $return);
 	}
 
-	print("Password reset succesfully. Now killing MySQL softly\n");
+	print("Password reset succesfully. Now killing MariaDB softly\n");
 	shell_exec("killall mariadb");
 	print("Sleeping 10 seconds\n");
 	shell_exec("sleep 10");
-	print("Restarting the actual MySQL service\n");
+	print("Restarting the actual MariaDB service\n");
 	system("systemctl restart mariadb.service");
 	print("Password successfully reset to \"$pass\"\n");
 }
