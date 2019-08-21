@@ -92,16 +92,18 @@ function updatecleanup_main()
 	// MR -- importance for update from 6.1.6 or previous where change apache/lighttpd structure 
 	// or others for next version
 
+	// ToDo: courier replaced with dovecot
 	$slist = array(
 		"httpd*", "lighttpd*", "bind*", "djbdns*", "pure-ftpd*", "php*",
-		"vpopmail", "courier-imap-toaster", "courier-authlib-toaster", 
-		"qmail", "safecat", "spamassassin", "bogofilter", "ezmlm-toaster", 
-		"autorespond-toaster", "clamav-toaster");
+		"vpopmail", "dovecot",
+		"qmail", "safecat", "spamassassin", "bogofilter", "ezmlm",
+		"autorespond", "clamav");
 	setUpdateServices($slist);
 	
 	// MR -- use this trick for qmail non-daemontools based
 	log_cleanup("Preparing some services again");
-	
+
+	// ToDo: courier replaced with dovecot
 	log_cleanup("- courier-imap enabled and restart queue");
 	exec("chkconfig courier-imap on");
 	createRestartFile("courier-imap");

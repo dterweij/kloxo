@@ -1,1 +1,2 @@
 SPAMDOPTIONS=" --min-spare=2 -d -p 783 -x -u lxpopuser --virtual-config-dir=/home/lxadmin/mail/spamassassin/%d/%l/"
+# ToDo: those args are not used, in centos5 there is no spamassassin dir!

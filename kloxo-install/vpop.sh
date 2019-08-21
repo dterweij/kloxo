@@ -19,6 +19,7 @@
 #
 #
 # LxCenter note: uses an lxadmin path!
+# Changed to vpopmail -DT 2019
 #
 # TODO: can this be implemented into kloxo-installer.php?
 #
@@ -40,4 +41,4 @@ echo "CREATE DATABASE IF NOT EXISTS popuser; GRANT ALL PRIVILEGES ON popuser.* T
 echo "CREATE DATABASE IF NOT EXISTS vpopmail;GRANT ALL PRIVILEGES ON vpopmail.* TO $dbuser@localhost IDENTIFIED BY '$dbpass'" | "$MYSQLPR" -u"$name" -p"$pass"
  fi
  fi
- echo "localhost|0|$dbuser|$dbpass|vpopmail">/home/lxadmin/mail/etc/vpopmail.mysql
+ echo "localhost|0|$dbuser|$dbpass|vpopmail">/home/vpopmail/etc/vpopmail.mysql
